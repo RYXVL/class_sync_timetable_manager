@@ -13,6 +13,13 @@ class _TimetableScreenState extends State<TimetableScreen> {
   DummyData dummyData = DummyData();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    // dummyData.insertDummyDataInFirestoreV1();
+    // dummyData.insertDummyDataInFirestoreV2();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   UserCredential user = await _auth.signInWithEmailAndPassword(
                       email: email, password: password);
                   if (user != null) {
-                    print(user);
+                    // print(user);
                     Navigator.pushNamed(context, '/timetable');
                   } else {
                     print('User returned as null.');

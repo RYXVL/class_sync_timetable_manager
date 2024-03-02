@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class DummyData {
+  String professorCode = 'XYZ';
+
   List dummyTimetable = [
     {
       "dayOfWeek": "Monday",
@@ -456,6 +459,7 @@ class DummyData {
 
   List<Widget> generateWidgetsForDummyData() {
     List<Widget> generatedList = [];
+    generatedList.add(Text('Professor Code: $professorCode'));
     for (var daysTimeTable in dummyTimetable) {
       generatedList.add(Text(daysTimeTable['dayOfWeek']));
       List timetable = daysTimeTable['timetable'];
@@ -470,5 +474,50 @@ class DummyData {
       }
     }
     return generatedList;
+  }
+
+  void insertDummyDataInFirestoreV1() async {
+    try {
+      FirebaseFirestore _db = FirebaseFirestore.instance;
+      for (var daysTimeTable in dummyTimetable) {
+        String dayOfWeek = daysTimeTable['dayOfWeek'];
+        List timetable = daysTimeTable['timetable'];
+        for (var slot in timetable) {
+          String timeStart = slot['timeStart'];
+          String timeEnd = slot['timeEnd'];
+          String subjectName = slot['subjectName'];
+          String semester = slot['semester'];
+          String section = slot['section'];
+          await _db.collection(professorCode).add({
+            'dayOfWeek': dayOfWeek,
+            'timeStart': timeStart,
+            'timeEnd': timeEnd,
+            'subjectName': subjectName,
+            'semester': semester,
+            'section': section,
+          });
+        }
+      }
+      print('Dummy data insertion into Firestore Completed!');
+    } catch (e) {
+      print('Caught Error: $e');
+    }
+  }
+
+  void insertDummyDataInFirestoreV2() async {
+    try {
+      FirebaseFirestore _db = FirebaseFirestore.instance;
+      for (var daysTimeTable in dummyTimetable) {
+        String dayOfWeek = daysTimeTable['dayOfWeek'];
+        List timetable = daysTimeTable['timetable'];
+        await _db.collection(professorCode).add({
+          'dayOfWeek': dayOfWeek,
+          'timetable': timetable,
+        });
+      }
+      print('Dummy data insertion into Firestore Completed!');
+    } catch (e) {
+      print('Caught Error: $e');
+    }
   }
 }
