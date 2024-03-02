@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../custom_widgets/registration_login_button.dart';
@@ -11,19 +12,48 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  String email = '';
+  String password = '';
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Registration Screen'),
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            RegistrationLoginTextField('Enter Your Email'),
-            RegistrationLoginTextField('Enter Your Password'),
+            RegistrationLoginTextField(
+              'Enter Your Email',
+              (value) {
+                email = value;
+              },
+            ),
+            RegistrationLoginTextField(
+              'Enter Your Password',
+              (value) {
+                password = value;
+              },
+            ),
             RegistrationLoginButton(
               'Register',
-              () {
-                Navigator.pop(context);
+              () async {
+                try {
+                  UserCredential user =
+                      await _auth.createUserWithEmailAndPassword(
+                          email: email, password: password);
+                  if (user != null) {
+                    Navigator.pushNamed(context, '/timetable');
+                    // print(user);
+                  } else {
+                    print('User returned as null.');
+                  }
+                  // Navigator.pop(context);
+                } catch (e) {
+                  print('Caught Error: $e');
+                }
               },
             )
           ],

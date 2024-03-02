@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class RegistrationLoginTextField extends StatelessWidget {
   String hintText;
+  dynamic onChanged;
 
-  RegistrationLoginTextField(this.hintText, {super.key});
+  RegistrationLoginTextField(this.hintText, this.onChanged, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +12,7 @@ class RegistrationLoginTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
       ),
+      onChanged: onChanged,
     );
   }
 }
