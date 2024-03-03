@@ -11,9 +11,12 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+// TODO: Add loading screen for registration and login screen
+
 class _LoginScreenState extends State<LoginScreen> {
-  String email = '';
-  String password = '';
+  // TODO: Remove this default email and password put for testing
+  String email = 'test1@email.com';
+  String password = 'test1123';
   final _auth = FirebaseAuth.instance;
 
   @override

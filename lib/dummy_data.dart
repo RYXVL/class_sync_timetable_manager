@@ -476,9 +476,32 @@ class DummyData {
     return generatedList;
   }
 
+  void getDummyDataFromFirebaseFirestore() async {
+    try {
+      FirebaseFirestore db = FirebaseFirestore.instance;
+      QuerySnapshot timetable = await db.collection(professorCode).get();
+      for (var everyDayTimetable in timetable.docs) {
+        print(everyDayTimetable['dayOfWeek']);
+        print(everyDayTimetable['timetable']);
+      }
+    } catch (e) {
+      print('Caught Error: $e');
+    }
+  }
+
+  void getDummyDataFromFirebaseFirestoreStreams() async {
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    await for (var snapshot in db.collection(professorCode).snapshots()) {
+      for (var everyDayTimetable in snapshot.docs) {
+        print(everyDayTimetable['dayOfWeek']);
+        print(everyDayTimetable['timetable']);
+      }
+    }
+  }
+
   void insertDummyDataInFirestoreV1() async {
     try {
-      FirebaseFirestore _db = FirebaseFirestore.instance;
+      FirebaseFirestore db = FirebaseFirestore.instance;
       for (var daysTimeTable in dummyTimetable) {
         String dayOfWeek = daysTimeTable['dayOfWeek'];
         List timetable = daysTimeTable['timetable'];
@@ -488,7 +511,7 @@ class DummyData {
           String subjectName = slot['subjectName'];
           String semester = slot['semester'];
           String section = slot['section'];
-          await _db.collection(professorCode).add({
+          await db.collection(professorCode).add({
             'dayOfWeek': dayOfWeek,
             'timeStart': timeStart,
             'timeEnd': timeEnd,
@@ -506,11 +529,11 @@ class DummyData {
 
   void insertDummyDataInFirestoreV2() async {
     try {
-      FirebaseFirestore _db = FirebaseFirestore.instance;
+      FirebaseFirestore db = FirebaseFirestore.instance;
       for (var daysTimeTable in dummyTimetable) {
         String dayOfWeek = daysTimeTable['dayOfWeek'];
         List timetable = daysTimeTable['timetable'];
-        await _db.collection(professorCode).add({
+        await db.collection(professorCode).add({
           'dayOfWeek': dayOfWeek,
           'timetable': timetable,
         });
