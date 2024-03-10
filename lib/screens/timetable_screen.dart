@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../custom_widgets/registration_login_button.dart';
 
-// import '../dummy_data.dart';
-
 class TimetableScreen extends StatefulWidget {
   const TimetableScreen({Key? key}) : super(key: key);
 
@@ -45,6 +43,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
     // dummyData.getDummyDataFromFirebaseFirestore();
     // dummyData.getDummyDataFromFirebaseFirestoreStreams();
     // dummyData.insertDummyDataInFirestoreV1();
+    // DummyData dummyData = DummyData();
     // dummyData.insertDummyDataInFirestoreV2();
     // DummyData dummyData = DummyData();
     // dummyData.insertDummyDataInFirestoreV3();
@@ -107,7 +106,15 @@ class _TimetableScreenState extends State<TimetableScreen> {
                     // timetableWidgets.add(const Text('XYZ'));
                     receivedData.clear();
                     for (var everyDayTimetable in timetable!) {
-                      receivedData.add(everyDayTimetable);
+                      // print({
+                      //   'DOW': everyDayTimetable.id,
+                      //   'tt': everyDayTimetable['timetable']
+                      // });
+                      // receivedData.add(everyDayTimetable);
+                      receivedData.add({
+                        'dayOfWeek': everyDayTimetable.id,
+                        'timetable': everyDayTimetable['timetable']
+                      });
                     }
                     updateListViewWithSelectedDay('XYZ', timetableWidgets);
 

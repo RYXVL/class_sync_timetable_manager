@@ -1,4 +1,6 @@
+import 'package:class_sync_timetable_manager/custom_widgets/registration_login_button.dart';
 import 'package:class_sync_timetable_manager/dummy_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class FilterVacancyScreen extends StatefulWidget {
@@ -14,6 +16,19 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
   String startTimeSlot = DummyData.times[0];
   String endTimeSlot = DummyData.times[0];
   String initialDay = DummyData.daysInAWeek[0];
+  String initialSlot = DummyData.timeRange[0];
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
+  List<String> filteredResults = [];
+
+  List<Text> generateListOfResults() {
+    List<Text> results = [];
+    // results.add(const Text('Results: -'));
+    for (String result in filteredResults) {
+      results.add(Text(result));
+    }
+    return results;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,32 +71,92 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
           ),
           Row(
             children: [
-              const Text('Start Time Slot: '),
+              const Text('Slot: '),
               DropdownButton(
-                value: startTimeSlot,
-                items: dummyData.generateTimeSlotsMenuItems(),
+                value: initialSlot,
+                items: dummyData.generateTimeRangeMenuItems(),
                 onChanged: (newValue) {
                   setState(() {
-                    startTimeSlot = newValue;
+                    initialSlot = newValue;
+                    List sep = newValue.split('-');
+                    print('start-${sep[0]} | end-${sep[1]}');
                   });
                 },
               ),
             ],
           ),
-          Row(
-            children: [
-              const Text('End Time Slot: '),
-              DropdownButton(
-                value: endTimeSlot,
-                items: dummyData.generateTimeSlotsMenuItems(),
-                onChanged: (newValue) {
-                  setState(() {
-                    endTimeSlot = newValue;
-                  });
-                },
-              ),
-            ],
-          )
+          // Row(
+          //   children: [
+          //     const Text('Start Time Slot: '),
+          //     DropdownButton(
+          //       value: startTimeSlot,
+          //       items: dummyData.generateTimeSlotsMenuItems(),
+          //       onChanged: (newValue) {
+          //         setState(() {
+          //           startTimeSlot = newValue;
+          //         });
+          //       },
+          //     ),
+          //   ],
+          // ),
+          // Row(
+          //   children: [
+          //     const Text('End Time Slot: '),
+          //     DropdownButton(
+          //       value: endTimeSlot,
+          //       items: dummyData.generateTimeSlotsMenuItems(),
+          //       onChanged: (newValue) {
+          //         setState(() {
+          //           endTimeSlot = newValue;
+          //         });
+          //       },
+          //     ),
+          //   ],
+          // )
+          RegistrationLoginButton(
+            'Search',
+            () async {
+              filteredResults.clear();
+              List startAndStopSlot = initialSlot.split('-');
+              for (String profCode in DummyData.profCodes) {
+                var doc = db.collection(profCode).doc(initialDay);
+                doc.get().then((DocumentSnapshot documentSnapshot) {
+                  if (documentSnapshot.exists) {
+                    // Document exists, access its data
+                    Map<String, dynamic>? data =
+                        documentSnapshot.data() as Map<String, dynamic>?;
+                    // var data = documentSnapshot.data();
+                    var completeTimetable = data?['timetable'];
+                    // print(data?['timetable']);
+                    for (var timetable in completeTimetable) {
+                      if (timetable['timeStart'] == startAndStopSlot[0] &&
+                          timetable['timeStart'] == startAndStopSlot[0] &&
+                          timetable['section'] == '' &&
+                          timetable['semester'] == '' &&
+                          timetable['subjectName'] == '') {
+                        print(timetable);
+                        setState(() {
+                          filteredResults.add(profCode);
+                        });
+
+                        break;
+                      }
+                    }
+                    print(filteredResults);
+                  } else {
+                    print('Document does not exist');
+                  }
+                }).catchError((error) {
+                  print('Failed to fetch document: $error');
+                });
+              }
+            },
+          ),
+          Expanded(
+            child: ListView(
+              children: generateListOfResults(),
+            ),
+          ),
         ],
       )),
     );

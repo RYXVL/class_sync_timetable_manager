@@ -34,6 +34,17 @@ class DummyData {
     '05:30pm',
   ];
 
+  static List<String> timeRange = [
+    '${times[0]}-${times[1]}',
+    '${times[1]}-${times[2]}',
+    '${times[3]}-${times[4]}',
+    '${times[4]}-${times[5]}',
+    '${times[6]}-${times[7]}',
+    '${times[7]}-${times[8]}',
+    '${times[9]}-${times[10]}',
+    '${times[10]}-${times[11]}',
+  ];
+
   List<DropdownMenuItem> generateProfCodesMenuItems() {
     List<DropdownMenuItem> profCodesMenuItems = [];
     for (String code in profCodes) {
@@ -60,6 +71,19 @@ class DummyData {
     return profTimeSlotsItems;
   }
 
+  List<DropdownMenuItem> generateTimeRangeMenuItems() {
+    List<DropdownMenuItem> profTimeRangeItems = [];
+    for (String range in timeRange) {
+      profTimeRangeItems.add(
+        DropdownMenuItem(
+          child: Text(range),
+          value: range,
+        ),
+      );
+    }
+    return profTimeRangeItems;
+  }
+
   List<DropdownMenuItem> generateDaysInAWeekMenuItems() {
     List<DropdownMenuItem> profDaysInAWeekItems = [];
     for (String day in daysInAWeek) {
@@ -80,74 +104,60 @@ class DummyData {
         {
           "timeStart": "08:00am",
           "timeEnd": "09:00am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "Math",
+          "semester": "Spring",
+          "section": "A",
         },
         {
           "timeStart": "09:00am",
           "timeEnd": "10:00am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "10:00am",
-          "timeEnd": "10:30am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "10:30am",
           "timeEnd": "11:30am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "Physics",
+          "semester": "Summer",
+          "section": "C",
         },
         {
           "timeStart": "11:30am",
           "timeEnd": "12:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "12:30pm",
-          "timeEnd": "01:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "01:00pm",
           "timeEnd": "02:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "Biology",
+          "semester": "Fall",
+          "section": "E",
         },
         {
           "timeStart": "02:00pm",
           "timeEnd": "03:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "03:00pm",
-          "timeEnd": "03:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "03:30pm",
           "timeEnd": "04:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
-      ],
+        {
+          "timeStart": "04:30pm",
+          "timeEnd": "05:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        }
+      ]
     },
     {
       "dayOfWeek": "Tuesday",
@@ -155,74 +165,60 @@ class DummyData {
         {
           "timeStart": "08:00am",
           "timeEnd": "09:00am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "09:00am",
           "timeEnd": "10:00am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "10:00am",
-          "timeEnd": "10:30am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "Computer Science",
+          "semester": "Spring",
+          "section": "A",
         },
         {
           "timeStart": "10:30am",
           "timeEnd": "11:30am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "Economics",
+          "semester": "Summer",
+          "section": "C",
         },
         {
           "timeStart": "11:30am",
           "timeEnd": "12:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "12:30pm",
-          "timeEnd": "01:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "Psychology",
+          "semester": "Spring",
+          "section": "D",
         },
         {
           "timeStart": "01:00pm",
           "timeEnd": "02:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "Sociology",
+          "semester": "Fall",
+          "section": "E",
         },
         {
           "timeStart": "02:00pm",
           "timeEnd": "03:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "03:00pm",
-          "timeEnd": "03:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "03:30pm",
           "timeEnd": "04:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
-      ],
+        {
+          "timeStart": "04:30pm",
+          "timeEnd": "05:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        }
+      ]
     },
     {
       "dayOfWeek": "Wednesday",
@@ -230,74 +226,60 @@ class DummyData {
         {
           "timeStart": "08:00am",
           "timeEnd": "09:00am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "Art",
+          "semester": "Spring",
+          "section": "A",
         },
         {
           "timeStart": "09:00am",
           "timeEnd": "10:00am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "10:00am",
-          "timeEnd": "10:30am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "10:30am",
           "timeEnd": "11:30am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "Drama",
+          "semester": "Summer",
+          "section": "C",
         },
         {
           "timeStart": "11:30am",
           "timeEnd": "12:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "12:30pm",
-          "timeEnd": "01:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "Dance",
+          "semester": "Spring",
+          "section": "D",
         },
         {
           "timeStart": "01:00pm",
           "timeEnd": "02:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "Film Studies",
+          "semester": "Fall",
+          "section": "E",
         },
         {
           "timeStart": "02:00pm",
           "timeEnd": "03:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "03:00pm",
-          "timeEnd": "03:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "03:30pm",
           "timeEnd": "04:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "Literature",
+          "semester": "Summer",
+          "section": "F",
         },
-      ],
+        {
+          "timeStart": "04:30pm",
+          "timeEnd": "05:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        }
+      ]
     },
     {
       "dayOfWeek": "Thursday",
@@ -305,74 +287,60 @@ class DummyData {
         {
           "timeStart": "08:00am",
           "timeEnd": "09:00am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "09:00am",
           "timeEnd": "10:00am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "10:00am",
-          "timeEnd": "10:30am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "History",
+          "semester": "Summer",
+          "section": "F",
         },
         {
           "timeStart": "10:30am",
           "timeEnd": "11:30am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "11:30am",
           "timeEnd": "12:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "12:30pm",
-          "timeEnd": "01:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "01:00pm",
           "timeEnd": "02:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "02:00pm",
           "timeEnd": "03:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "03:00pm",
-          "timeEnd": "03:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "03:30pm",
           "timeEnd": "04:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
-      ],
+        {
+          "timeStart": "04:30pm",
+          "timeEnd": "05:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        }
+      ]
     },
     {
       "dayOfWeek": "Friday",
@@ -380,74 +348,60 @@ class DummyData {
         {
           "timeStart": "08:00am",
           "timeEnd": "09:00am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "Physical Education",
+          "semester": "Spring",
+          "section": "A",
         },
         {
           "timeStart": "09:00am",
           "timeEnd": "10:00am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "10:00am",
-          "timeEnd": "10:30am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "10:30am",
           "timeEnd": "11:30am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "11:30am",
           "timeEnd": "12:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "12:30pm",
-          "timeEnd": "01:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "01:00pm",
           "timeEnd": "02:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "02:00pm",
           "timeEnd": "03:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "03:00pm",
-          "timeEnd": "03:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "03:30pm",
           "timeEnd": "04:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
-      ],
+        {
+          "timeStart": "04:30pm",
+          "timeEnd": "05:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        }
+      ]
     },
     {
       "dayOfWeek": "Saturday",
@@ -455,75 +409,430 @@ class DummyData {
         {
           "timeStart": "08:00am",
           "timeEnd": "09:00am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "PHY",
+          "semester": "Fall",
+          "section": "A",
         },
         {
           "timeStart": "09:00am",
           "timeEnd": "10:00am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "10:00am",
-          "timeEnd": "10:30am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "CHM",
+          "semester": "Spring",
+          "section": "B",
         },
         {
           "timeStart": "10:30am",
           "timeEnd": "11:30am",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "11:30am",
           "timeEnd": "12:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "12:30pm",
-          "timeEnd": "01:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "01:00pm",
           "timeEnd": "02:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "BIO",
+          "semester": "Summer",
+          "section": "C",
         },
         {
           "timeStart": "02:00pm",
           "timeEnd": "03:00pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
-        },
-        {
-          "timeStart": "03:00pm",
-          "timeEnd": "03:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
         {
           "timeStart": "03:30pm",
           "timeEnd": "04:30pm",
-          "subjectName": "testsubject",
-          "semester": "testsemester",
-          "section": "testsection",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
         },
-      ],
+        {
+          "timeStart": "04:30pm",
+          "timeEnd": "05:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        }
+      ]
+    }
+  ];
+
+  List dummyTimetable2 = [
+    {
+      "dayOfWeek": "Monday",
+      "timetable": [
+        {
+          "timeStart": "08:00am",
+          "timeEnd": "09:00am",
+          "subjectName": "ENG",
+          "semester": "Fall",
+          "section": "A",
+        },
+        {
+          "timeStart": "09:00am",
+          "timeEnd": "10:00am",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "10:30am",
+          "timeEnd": "11:30am",
+          "subjectName": "MTH",
+          "semester": "Spring",
+          "section": "B",
+        },
+        {
+          "timeStart": "11:30am",
+          "timeEnd": "12:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "01:00pm",
+          "timeEnd": "02:00pm",
+          "subjectName": "PHY",
+          "semester": "Summer",
+          "section": "C",
+        },
+        {
+          "timeStart": "02:00pm",
+          "timeEnd": "03:00pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "03:30pm",
+          "timeEnd": "04:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "04:30pm",
+          "timeEnd": "05:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        }
+      ]
     },
+    {
+      "dayOfWeek": "Tuesday",
+      "timetable": [
+        {
+          "timeStart": "08:00am",
+          "timeEnd": "09:00am",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "09:00am",
+          "timeEnd": "10:00am",
+          "subjectName": "CHE",
+          "semester": "Spring",
+          "section": "A",
+        },
+        {
+          "timeStart": "10:30am",
+          "timeEnd": "11:30am",
+          "subjectName": "BIO",
+          "semester": "Summer",
+          "section": "C",
+        },
+        {
+          "timeStart": "11:30am",
+          "timeEnd": "12:30pm",
+          "subjectName": "HIS",
+          "semester": "Spring",
+          "section": "D",
+        },
+        {
+          "timeStart": "01:00pm",
+          "timeEnd": "02:00pm",
+          "subjectName": "SOC",
+          "semester": "Fall",
+          "section": "E",
+        },
+        {
+          "timeStart": "02:00pm",
+          "timeEnd": "03:00pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "03:30pm",
+          "timeEnd": "04:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "04:30pm",
+          "timeEnd": "05:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        }
+      ]
+    },
+    {
+      "dayOfWeek": "Wednesday",
+      "timetable": [
+        {
+          "timeStart": "08:00am",
+          "timeEnd": "09:00am",
+          "subjectName": "ART",
+          "semester": "Spring",
+          "section": "A",
+        },
+        {
+          "timeStart": "09:00am",
+          "timeEnd": "10:00am",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "10:30am",
+          "timeEnd": "11:30am",
+          "subjectName": "PHI",
+          "semester": "Summer",
+          "section": "C",
+        },
+        {
+          "timeStart": "11:30am",
+          "timeEnd": "12:30pm",
+          "subjectName": "PSY",
+          "semester": "Spring",
+          "section": "D",
+        },
+        {
+          "timeStart": "01:00pm",
+          "timeEnd": "02:00pm",
+          "subjectName": "SOC",
+          "semester": "Fall",
+          "section": "E",
+        },
+        {
+          "timeStart": "02:00pm",
+          "timeEnd": "03:00pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "03:30pm",
+          "timeEnd": "04:30pm",
+          "subjectName": "ECO",
+          "semester": "Summer",
+          "section": "F",
+        },
+        {
+          "timeStart": "04:30pm",
+          "timeEnd": "05:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        }
+      ]
+    },
+    {
+      "dayOfWeek": "Thursday",
+      "timetable": [
+        {
+          "timeStart": "08:00am",
+          "timeEnd": "09:00am",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "09:00am",
+          "timeEnd": "10:00am",
+          "subjectName": "MAT",
+          "semester": "Summer",
+          "section": "F",
+        },
+        {
+          "timeStart": "10:30am",
+          "timeEnd": "11:30am",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "11:30am",
+          "timeEnd": "12:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "01:00pm",
+          "timeEnd": "02:00pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "02:00pm",
+          "timeEnd": "03:00pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "03:30pm",
+          "timeEnd": "04:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "04:30pm",
+          "timeEnd": "05:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        }
+      ]
+    },
+    {
+      "dayOfWeek": "Friday",
+      "timetable": [
+        {
+          "timeStart": "08:00am",
+          "timeEnd": "09:00am",
+          "subjectName": "PHY",
+          "semester": "Spring",
+          "section": "A",
+        },
+        {
+          "timeStart": "09:00am",
+          "timeEnd": "10:00am",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "10:30am",
+          "timeEnd": "11:30am",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "11:30am",
+          "timeEnd": "12:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "01:00pm",
+          "timeEnd": "02:00pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "02:00pm",
+          "timeEnd": "03:00pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "03:30pm",
+          "timeEnd": "04:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "04:30pm",
+          "timeEnd": "05:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        }
+      ]
+    },
+    {
+      "dayOfWeek": "Saturday",
+      "timetable": [
+        {
+          "timeStart": "08:00am",
+          "timeEnd": "09:00am",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "09:00am",
+          "timeEnd": "10:00am",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "10:30am",
+          "timeEnd": "11:30am",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "11:30am",
+          "timeEnd": "12:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "01:00pm",
+          "timeEnd": "02:00pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "02:00pm",
+          "timeEnd": "03:00pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "03:30pm",
+          "timeEnd": "04:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        },
+        {
+          "timeStart": "04:30pm",
+          "timeEnd": "05:30pm",
+          "subjectName": "",
+          "semester": "",
+          "section": "",
+        }
+      ]
+    }
   ];
 
   // Takes data from 'dummyTimetable' list of this class and makes a list of text widgets out
@@ -549,6 +858,7 @@ class DummyData {
 
   // Gets all documents from firebase using the professor code and prints the 'dayOfWeek'
   // and 'timetable' from each doc.
+  // Fetches without using custom ID of docs. Has to be decommissioned.
   void getDummyDataFromFirebaseFirestore() async {
     try {
       FirebaseFirestore db = FirebaseFirestore.instance;
@@ -565,6 +875,7 @@ class DummyData {
   // Gets all documents from firebase snapshots using the professor code and prints the
   // 'dayOfWeek' and 'timetable' from each doc. Whenever there is a change made in firestore
   // data, it automatically sends the new data to the app and it printed again.
+  // Fetches without using custom ID of docs. Has to be decommissioned.
   void getDummyDataFromFirebaseFirestoreStreams() async {
     FirebaseFirestore db = FirebaseFirestore.instance;
     await for (var snapshot in db.collection(professorCode).snapshots()) {
@@ -577,6 +888,7 @@ class DummyData {
 
   // Using the 'dummyTimetable' list of this class it pushes the data to firestore where each
   // doc contains dayOfWeek and one timeslot of that day.
+  // Inserts without using custom ID of docs. Has to be decommissioned.
   void insertDummyDataInFirestoreV1() async {
     try {
       FirebaseFirestore db = FirebaseFirestore.instance;
@@ -607,6 +919,7 @@ class DummyData {
 
   // Using the 'dummyTimetable' list of this class it pushes the data onto firestore where each
   // doc contains the dayOfWeek and the entire timetable for that day.
+  // Inserts without using custom ID of docs. Has to be decommissioned.
   void insertDummyDataInFirestoreV2() async {
     try {
       FirebaseFirestore db = FirebaseFirestore.instance;
@@ -630,23 +943,18 @@ class DummyData {
   void insertDummyDataInFirestoreV3() async {
     try {
       FirebaseFirestore db = FirebaseFirestore.instance;
-      for (var daysTimeTable in dummyTimetable) {
+      for (var daysTimeTable in dummyTimetable2) {
         String dayOfWeek = daysTimeTable['dayOfWeek'];
         List timetable = daysTimeTable['timetable'];
         // ------------------------------------------------
         await db
-            .collection(professorCode)
-            .doc('$professorCode-$dayOfWeek')
+            .collection('ABC')
+            .doc(dayOfWeek)
             .set({'timetable': timetable}).then((value) {
           print('Document inserted successfully!');
         }).catchError((error) {
           print('Failed to insert document: $error');
         });
-        // ------------------------------------------------
-        // await db.collection(professorCode).add({
-        //   'dayOfWeek': dayOfWeek,
-        //   'timetable': timetable,
-        // });
       }
       print('Dummy data insertion into Firestore Completed!');
     } catch (e) {
