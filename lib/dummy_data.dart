@@ -16,6 +16,7 @@ class DummyData {
   // TODO: To be moved to Firestore
   static List<String> profCodes = [
     'XYZ',
+    'ABC',
   ];
 
   static List<String> times = [
@@ -57,6 +58,19 @@ class DummyData {
       );
     }
     return profTimeSlotsItems;
+  }
+
+  List<DropdownMenuItem> generateDaysInAWeekMenuItems() {
+    List<DropdownMenuItem> profDaysInAWeekItems = [];
+    for (String day in daysInAWeek) {
+      profDaysInAWeekItems.add(
+        DropdownMenuItem(
+          child: Text(day),
+          value: day,
+        ),
+      );
+    }
+    return profDaysInAWeekItems;
   }
 
   List dummyTimetable = [
