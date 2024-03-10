@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../custom_widgets/registration_login_button.dart';
+
 // import '../dummy_data.dart';
 
 class TimetableScreen extends StatefulWidget {
@@ -44,6 +46,8 @@ class _TimetableScreenState extends State<TimetableScreen> {
     // dummyData.getDummyDataFromFirebaseFirestoreStreams();
     // dummyData.insertDummyDataInFirestoreV1();
     // dummyData.insertDummyDataInFirestoreV2();
+    // DummyData dummyData = DummyData();
+    // dummyData.insertDummyDataInFirestoreV3();
   }
 
   void updateListViewWithSelectedDay(
@@ -117,6 +121,12 @@ class _TimetableScreenState extends State<TimetableScreen> {
                   }
                 },
               ),
+            ),
+            RegistrationLoginButton(
+              'Filter Vacancy Screen',
+              () {
+                Navigator.pushNamed(context, '/filtervacancy');
+              },
             ),
           ],
         ),
