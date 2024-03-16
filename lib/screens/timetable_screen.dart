@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:quickalert/quickalert.dart';
 
 import '../custom_widgets/registration_login_button.dart';
 
@@ -38,6 +39,9 @@ class _TimetableScreenState extends State<TimetableScreen> {
 
   String initialValue = 'Monday';
 
+  bool firstData = true;
+  int initialBuild = 0;
+
   @override
   void initState() {
     // dummyData.getDummyDataFromFirebaseFirestore();
@@ -47,6 +51,15 @@ class _TimetableScreenState extends State<TimetableScreen> {
     // dummyData.insertDummyDataInFirestoreV2();
     // DummyData dummyData = DummyData();
     // dummyData.insertDummyDataInFirestoreV3();
+    // initialBuild = true;
+  }
+
+  void generatePopUpInfoMessage() {
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.info,
+      text: 'There has been an update in your time table!',
+    );
   }
 
   void updateListViewWithSelectedDay(
@@ -75,6 +88,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
 
   @override
   Widget build(BuildContext context) {
+    initialBuild++;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Timetable Screen'),
@@ -86,15 +100,17 @@ class _TimetableScreenState extends State<TimetableScreen> {
         // TODO: Decide a way so that while logging in a global variable is automatically set which contains the professor code
         child: Column(
           children: [
-            DropdownButton(
-              value: initialValue,
-              items: generateDaysDropdownMenuItems(),
-              onChanged: (newValue) {
-                setState(() {
-                  initialValue = newValue;
-                });
-              },
-            ),
+            // DropdownButton(
+            //   value: initialValue,
+            //   items: generateDaysDropdownMenuItems(),
+            //   onChanged: (newValue) {
+            //     setState(() {
+            //       firstData = true;
+            //       // dataUpdated = false;
+            //       initialValue = newValue;
+            //     });
+            //   },
+            // ),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: db.collection('XYZ').snapshots(),
@@ -105,19 +121,58 @@ class _TimetableScreenState extends State<TimetableScreen> {
                     // TODO: Remove hardcoded professor code
                     // timetableWidgets.add(const Text('XYZ'));
                     receivedData.clear();
+                    //
+                    // timetableWidgets.clear();
+                    timetableWidgets.add(Text('XYZ'));
                     for (var everyDayTimetable in timetable!) {
-                      // print({
-                      //   'DOW': everyDayTimetable.id,
-                      //   'tt': everyDayTimetable['timetable']
-                      // });
-                      // receivedData.add(everyDayTimetable);
-                      receivedData.add({
-                        'dayOfWeek': everyDayTimetable.id,
-                        'timetable': everyDayTimetable['timetable']
+                      // if (everyDayTimetable['dayOfWeek'] == initialValue) {
+                      String dayOfWeek = everyDayTimetable.id;
+                      timetableWidgets.add(Text(dayOfWeek));
+                      for (var slot in everyDayTimetable['timetable']) {
+                        String timeStart = slot['timeStart'];
+                        String timeEnd = slot['timeEnd'];
+                        String subjectName = slot['subjectName'];
+                        String semester = slot['semester'];
+                        String section = slot['section'];
+                        timetableWidgets.add(Text(
+                            '$timeStart - $timeEnd: $subjectName -> $semester-$section'));
+                      }
+                      // break;
+                      // }
+                    }
+                    //
+                    // for (var everyDayTimetable in timetable!) {
+                    //
+                    //   receivedData.add({
+                    //     'dayOfWeek': everyDayTimetable.id,
+                    //     'timetable': everyDayTimetable['timetable']
+                    //   });
+                    // }
+
+                    // updateListViewWithSelectedDay('XYZ', timetableWidgets);
+                    // () {
+                    //   if (firstData) {
+                    //     firstData = false;
+                    //   } else {
+                    //     QuickAlert.show(
+                    //       context: context,
+                    //       type: QuickAlertType.info,
+                    //       text: 'There has been an update in your time table!',
+                    //     );
+                    //   }
+                    // };
+                    // fix this bug where the alert is happening even
+                    // when just day option is changed apart from
+                    // update on firebase
+
+                    if (firstData) {
+                      firstData = false;
+                    } else {
+                      print('display');
+                      Future.delayed(Duration.zero, () async {
+                        generatePopUpInfoMessage();
                       });
                     }
-                    updateListViewWithSelectedDay('XYZ', timetableWidgets);
-
                     return ListView(
                       children: timetableWidgets,
                     );
