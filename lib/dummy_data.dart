@@ -961,4 +961,28 @@ class DummyData {
       print('Caught Error: $e');
     }
   }
+
+  // Same as V3 but it takes profCode and data as input to push data
+  // Data has to be of form [{'Monday': <array of slots and details>, ...}]
+  void insertDummyDataInFirestoreV4(String profCode, dynamic data) async {
+    try {
+      FirebaseFirestore db = FirebaseFirestore.instance;
+      for (String day in daysInAWeek) {
+        dynamic scheduleForDay =
+            data[day]; // list of obj {timestart, timeend, subjectname}
+        // print(day)
+        await db
+            .collection(profCode)
+            .doc(day)
+            .set({'timetable': scheduleForDay}).then((value) {
+          print('Document inserted successfully!');
+        }).catchError((error) {
+          print('Failed to insert document: $error');
+        });
+      }
+      print('Dummy data insertion into Firestore Completed!');
+    } catch (e) {
+      print('Caught Error: $e');
+    }
+  }
 }

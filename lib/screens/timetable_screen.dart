@@ -164,15 +164,16 @@ class _TimetableScreenState extends State<TimetableScreen> {
                     // fix this bug where the alert is happening even
                     // when just day option is changed apart from
                     // update on firebase
-
-                    if (firstData) {
-                      firstData = false;
-                    } else {
-                      print('display');
-                      Future.delayed(Duration.zero, () async {
-                        generatePopUpInfoMessage();
-                      });
-                    }
+                    // THIS HAS TO BE FIXED
+                    // THE ALERT
+                    // if (firstData) {
+                    //   firstData = false;
+                    // } else {
+                    //   print('display');
+                    //   Future.delayed(Duration.zero, () async {
+                    //     generatePopUpInfoMessage();
+                    //   });
+                    // }
                     return ListView(
                       children: timetableWidgets,
                     );
@@ -188,6 +189,12 @@ class _TimetableScreenState extends State<TimetableScreen> {
               'Filter Vacancy Screen',
               () {
                 Navigator.pushNamed(context, '/filtervacancy');
+              },
+            ),
+            RegistrationLoginButton(
+              'Push CSV To Firebase Firestore',
+              () {
+                Navigator.pushNamed(context, '/pushcsv');
               },
             ),
           ],
