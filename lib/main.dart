@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'screens/filter_vacancy_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/push_csv_screen.dart';
 import 'screens/registration_screen.dart';
 import 'screens/timetable_screen.dart';
 import 'screens/welcome_screen.dart';
-
 // void main() {
 //   runApp(const MyApp());
 // }
@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/registration': (context) => const RegistrationScreen(),
         '/timetable': (context) => const TimetableScreen(),
         '/filtervacancy': (context) => const FilterVacancyScreen(),
+        '/pushcsv': (context) => const PushCSVScreen(),
       },
       initialRoute: '/',
       // home: const WelcomeScreen(),
