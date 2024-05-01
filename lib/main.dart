@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/timetable': (context) => const TimetableScreen(),
         '/filtervacancy': (context) => const FilterVacancyScreen(),
         '/pushcsv': (context) => const PushCSVScreen(),
+        // '/lessonplan': (context) => const LessonPlanScreen(Object),
       },
       initialRoute: '/',
       // home: const WelcomeScreen(),

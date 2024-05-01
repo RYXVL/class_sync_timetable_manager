@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
 
+import '../custom_widgets/lesson_plan_button.dart';
 import '../custom_widgets/registration_login_button.dart';
+import '../utils/pdf_generator.dart';
+import '../utils/pdf_operator.dart';
 
 class TimetableScreen extends StatefulWidget {
   const TimetableScreen({Key? key}) : super(key: key);
@@ -86,6 +89,32 @@ class _TimetableScreenState extends State<TimetableScreen> {
 
   List receivedData = [];
 
+  void generatePDFFromLessonPlanData() async {
+    // FirebaseFirestore db = FirebaseFirestore.instance;
+    // DateTime now = DateTime.now();
+    // String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    // if (lessonInfo["overrideDate"] != "") {
+    //   formattedDate = lessonInfo["overrideDate"];
+    // }
+    dynamic lessonPlanSnapshot =
+        await db.collection('ABC').doc('Lesson Plan').get();
+    if (lessonPlanSnapshot.exists) {
+      Map<String, dynamic> completeLessonPlanData =
+          lessonPlanSnapshot.data() as Map<String, dynamic>;
+
+      print(completeLessonPlanData);
+
+      final pdfFile = await PDFGenerator.generate(completeLessonPlanData);
+      // print(pdfFile);
+      // print('Check1');
+
+      PDFOperator.openFile(pdfFile);
+      print('Check2');
+    } else {
+      print('Document does not exist');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     initialBuild++;
@@ -117,7 +146,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final timetable = snapshot.data?.docs;
-                    List<Text> timetableWidgets = [];
+                    List<Widget> timetableWidgets = [];
                     // TODO: Remove hardcoded professor code
                     // timetableWidgets.add(const Text('XYZ'));
                     receivedData.clear();
@@ -134,8 +163,8 @@ class _TimetableScreenState extends State<TimetableScreen> {
                         String subjectName = slot['subjectName'];
                         String semester = slot['semester'];
                         String section = slot['section'];
-                        timetableWidgets.add(Text(
-                            '$timeStart - $timeEnd: $subjectName -> $semester-$section'));
+                        timetableWidgets.add(LessonPlanButton(section, semester,
+                            subjectName, timeStart, timeEnd, context));
                       }
                       // break;
                       // }
@@ -197,6 +226,14 @@ class _TimetableScreenState extends State<TimetableScreen> {
                 Navigator.pushNamed(context, '/pushcsv');
               },
             ),
+            MaterialButton(
+              onPressed: () {
+                generatePDFFromLessonPlanData();
+              },
+              // final pdfFile = await PdfInvoice
+              // },
+              child: Text('Generate Lesson Plan'),
+            )
           ],
         ),
       ),

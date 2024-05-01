@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DummyData {
   String professorCode = 'XYZ';
@@ -981,6 +982,91 @@ class DummyData {
         });
       }
       print('Dummy data insertion into Firestore Completed!');
+    } catch (e) {
+      print('Caught Error: $e');
+    }
+  }
+
+  void insertLessonPlanInformation(
+      String profCode, dynamic lessonInfo, String lessonPlanData) async {
+    try {
+      print(lessonInfo);
+      FirebaseFirestore db = FirebaseFirestore.instance;
+      DateTime now = DateTime.now();
+      String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+      if (lessonInfo["overrideDate"] != "") {
+        formattedDate = lessonInfo["overrideDate"];
+      }
+      dynamic lessonPlanSnapshot =
+          await db.collection(profCode).doc('Lesson Plan').get();
+      if (lessonPlanSnapshot.exists) {
+        Map<String, dynamic> data =
+            lessonPlanSnapshot.data() as Map<String, dynamic>;
+        print(data);
+        // formattedDate = "2024-04-30";
+        if (data.containsKey(formattedDate)) {
+          dynamic slotsList = data[formattedDate];
+          if (slotsList.containsKey(lessonInfo["timeslot"])) {
+            // dynamic slotData = slotsList[lessonInfo["timeslot"]];
+            data[formattedDate][lessonInfo["timeslot"]]["data"] =
+                lessonPlanData;
+            await db.collection(profCode).doc('Lesson Plan').update(data);
+            print('The key "key3" exists in the map.');
+          } else {
+            data[formattedDate][lessonInfo["timeslot"]] = {};
+            data[formattedDate][lessonInfo["timeslot"]]["data"] =
+                lessonPlanData;
+
+            data[formattedDate][lessonInfo["timeslot"]]["section"] =
+                lessonInfo["section"];
+            data[formattedDate][lessonInfo["timeslot"]]["semester"] =
+                lessonInfo["semester"];
+            data[formattedDate][lessonInfo["timeslot"]]["subjectName"] =
+                lessonInfo["subjectName"];
+            // print("Check");
+            await db.collection(profCode).doc('Lesson Plan').update(data);
+            print('The key "key3" does not exist in the map.');
+          }
+          print('The key "key2" exists in the map.');
+        } else {
+          // print('The key "key2" does not exist in the map.');
+          data[formattedDate] = {};
+          // print("Check");
+          data[formattedDate][lessonInfo["timeslot"]] = {};
+          data[formattedDate][lessonInfo["timeslot"]]["data"] = lessonPlanData;
+
+          data[formattedDate][lessonInfo["timeslot"]]["section"] =
+              lessonInfo["section"];
+          data[formattedDate][lessonInfo["timeslot"]]["semester"] =
+              lessonInfo["semester"];
+          data[formattedDate][lessonInfo["timeslot"]]["subjectName"] =
+              lessonInfo["subjectName"];
+          // print("Check");
+          await db.collection(profCode).doc('Lesson Plan').update(data);
+
+          // lessonInfo.forEach((key, value) {
+          //   print('$key: $value');
+          // });
+        }
+        print('Data from document: $data');
+      } else {
+        print('Document does not exist');
+      }
+      // lessonInfo.forEach((key, value) {
+      //   print('$key: $value');
+      // });
+      // print("Lesson Info: $lessonInfo");
+      // print(lessonPlanSnapshot);
+      // await db
+      //     .collection(profCode)
+      //     .doc('Lesson Plan')
+      //     .set({formattedDate: lessonPlanData}).then((value) {
+      //   print('Document inserted successfully!');
+      // }).catchError((error) {
+      //   print('Failed to insert document: $error');
+      // });
+      // }
+      // print('Dummy data insertion into Firestore Completed!');
     } catch (e) {
       print('Caught Error: $e');
     }

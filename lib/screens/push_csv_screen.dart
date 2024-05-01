@@ -1,4 +1,3 @@
-import 'package:class_sync_timetable_manager/dummy_data.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,11 +45,7 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
               timetableObjects[dayOfWeek] = daysTimetable;
               // }
             }
-            DummyData().insertDummyDataInFirestoreV4('UDA', timetableObjects);
-            // for (var temp in DummyData.daysInAWeek) {
-            //   print(temp);
-            //   print(timetableObjects[temp]);
-            // }
+            // DummyData().insertDummyDataInFirestoreV4('UDA', timetableObjects);
           },
           child: const Text('Insert From CSV'),
         ),
