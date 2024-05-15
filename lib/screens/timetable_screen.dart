@@ -1,3 +1,4 @@
+import 'package:class_sync_timetable_manager/dummy_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
@@ -47,6 +48,8 @@ class _TimetableScreenState extends State<TimetableScreen> {
 
   @override
   void initState() {
+    DummyData().getProfCode();
+    // getProfCode();
     // dummyData.getDummyDataFromFirebaseFirestore();
     // dummyData.getDummyDataFromFirebaseFirestoreStreams();
     // dummyData.insertDummyDataInFirestoreV1();

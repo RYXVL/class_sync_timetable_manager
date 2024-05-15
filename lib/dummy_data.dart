@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -1069,6 +1070,22 @@ class DummyData {
       // print('Dummy data insertion into Firestore Completed!');
     } catch (e) {
       print('Caught Error: $e');
+    }
+  }
+
+  void getProfCode() async {
+    String? userEmail = FirebaseAuth.instance.currentUser?.email;
+    print(userEmail);
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    dynamic profCodeSnapshot =
+        await db.collection('PROFCODES').doc(userEmail).get();
+    if (profCodeSnapshot.exists) {
+      Map<String, dynamic> data =
+          profCodeSnapshot.data() as Map<String, dynamic>;
+      String profCode = data['code'];
+      print(profCode);
+    } else {
+      print('No such document exists!');
     }
   }
 }

@@ -9,8 +9,14 @@ class RegistrationLoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      color: Color(0xFF141319),
       onPressed: onPressed,
-      child: Text(textOnButton),
+      child: Text(
+        textOnButton,
+        style: TextStyle(color: Colors.white),
+      ),
     );
   }
 }

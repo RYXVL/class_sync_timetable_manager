@@ -4,6 +4,18 @@ import 'package:flutter/material.dart';
 import '../custom_widgets/registration_login_button.dart';
 import '../custom_widgets/registration_login_text_field.dart';
 
+const colorizeColors = [
+  Colors.purple,
+  Colors.blue,
+  Colors.yellow,
+  Colors.red,
+];
+
+const colorizeTextStyle = TextStyle(
+  fontSize: 50.0,
+  fontFamily: 'Horizon',
+);
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -23,10 +35,54 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login Screen'),
+        automaticallyImplyLeading: false,
+        leading: TextButton(
+          // style: ButtonStyle(
+          // backgroundColor: ,
+          // ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
+        title: const Text(
+          'LOGIN',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 40.0,
+            fontFamily: 'Gladifilthefte',
+          ),
+        ),
+        // title: const Text('Login Screen'),
+        // Gladifilthefte
+        // title: AnimatedTextKit(
+        //   repeatForever: true,
+        //   animatedTexts: [
+        //     FadeAnimatedText(
+        //       'LOGIN',
+        //       textStyle: TextStyle(color: Colors.white),
+        //     ),
+        // FadeAnimatedText(
+        //   'do it RIGHT!!',
+        //   textStyle: TextStyle(color: Colors.white),
+        // ),
+        // FadeAnimatedText(
+        //   'do it RIGHT NOW!!!',
+        //   textStyle: TextStyle(color: Colors.white),
+        // ),
+        // ],
+        //   onTap: () {
+        //     print("Tap Event");
+        //   },
+        // ),
+        backgroundColor: Color(0xFF141319),
       ),
       body: SafeArea(
         child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             RegistrationLoginTextField(
               'Enter Your Email',
@@ -44,6 +100,8 @@ class _LoginScreenState extends State<LoginScreen> {
               'Login',
               () async {
                 try {
+                  // print('Email: $email');
+                  // print('Pass: $password');
                   UserCredential user = await _auth.signInWithEmailAndPassword(
                       email: email, password: password);
                   if (user != null) {
