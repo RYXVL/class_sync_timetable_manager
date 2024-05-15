@@ -32,9 +32,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             repeatForever: true,
             animatedTexts: [
               RotateAnimatedText('CLASS'),
+              RotateAnimatedText('SYNC'),
               RotateAnimatedText('TIMETABLE'),
-              RotateAnimatedText('MANAGEMENT'),
-              RotateAnimatedText('SYSTEM'),
+              RotateAnimatedText('MANAGER'),
             ],
             // onTap: () {
             //   print("Tap Event");
