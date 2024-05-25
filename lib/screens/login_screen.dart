@@ -1,3 +1,5 @@
+import 'package:class_sync_timetable_manager/dummy_data.dart';
+import 'package:class_sync_timetable_manager/screens/timetable_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -105,8 +107,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   UserCredential user = await _auth.signInWithEmailAndPassword(
                       email: email, password: password);
                   if (user != null) {
+                    String profCode = await DummyData().getProfCode();
                     // print(user);
-                    Navigator.pushNamed(context, '/timetable');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return TimetableScreen(profCode);
+                    }));
+
+                    // Navigator.pushNamed(context, '/timetable',
+                    //     arguments: {'profCode': profCode});
                   } else {
                     print('User returned as null.');
                   }

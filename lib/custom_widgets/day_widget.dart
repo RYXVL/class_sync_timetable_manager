@@ -20,7 +20,8 @@ class DayWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Container(
         decoration: BoxDecoration(
-          color: daysContainerColor[day],
+          // color: daysContainerColor[day],
+          color: Color(0xFF141319),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30.0),
             topRight: Radius.circular(0.0),

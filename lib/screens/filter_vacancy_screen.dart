@@ -26,12 +26,26 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
     print('ListGen Res: $filteredResults');
     List<Text> results = [];
     if (filteredResults.length == 0) {
-      results.add(Text('No faculty available!'));
+      results.add(const Text(
+        'No faculty available!',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20.0,
+          fontFamily: 'DMSerifDisplay',
+        ),
+      ));
       return results;
     }
     // results.add(const Text('Results: -'));
     for (String result in filteredResults) {
-      results.add(Text(result));
+      results.add(Text(
+        result,
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 20.0,
+          fontFamily: 'DMSerifDisplay',
+        ),
+      ));
     }
     return results;
   }
@@ -68,7 +82,7 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
       ),
       body: SafeArea(
           child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           // Row(
@@ -225,8 +239,15 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
             },
           ),
           Expanded(
-            child: ListView(
-              children: generateListOfResults(),
+            child: Container(
+              // padding: EdgeInsets.symmetric(horizontal: 12.0),
+              // decoration: BoxDecoration(
+              //   border: Border.all(color: Colors.black, width: 2.0),
+              //   borderRadius: BorderRadius.circular(8.0),
+              // ),
+              child: ListView(
+                children: generateListOfResults(),
+              ),
             ),
           ),
         ],

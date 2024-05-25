@@ -9,7 +9,10 @@ import '../utils/pdf_generator.dart';
 import '../utils/pdf_operator.dart';
 
 class TimetableScreen extends StatefulWidget {
-  const TimetableScreen({Key? key}) : super(key: key);
+  // const TimetableScreen({Key? key}) : super(key: key);
+  String profCode;
+  TimetableScreen(this.profCode);
+  // final String args = ModalRoute.of(context)!.settings.arguments as String;
 
   @override
   State<TimetableScreen> createState() => _TimetableScreenState();
@@ -49,6 +52,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
 
   @override
   void initState() {
+    print('Inside timetable screen init state - profCode: ${widget.profCode}');
     // fetchedProfCode = DummyData().getProfCode() as String;
     // getProfCode();
     // dummyData.getDummyDataFromFirebaseFirestore();
@@ -176,6 +180,10 @@ class _TimetableScreenState extends State<TimetableScreen> {
                     // TODO: Remove hardcoded professor code
                     // timetableWidgets.add(const Text('XYZ'));
                     receivedData.clear();
+                    // setState(() {
+                    //   generatePopUpInfoMessage();
+                    // });
+
                     //
                     // timetableWidgets.clear();
                     // timetableWidgets.add(Text('XYZ'));

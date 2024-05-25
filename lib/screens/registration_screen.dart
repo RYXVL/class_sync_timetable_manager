@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../custom_widgets/registration_login_button.dart';
 import '../custom_widgets/registration_login_text_field.dart';
+import 'timetable_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -132,21 +133,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               'Register',
               () async {
                 try {
-                  UserCredential user =
-                      await _auth.createUserWithEmailAndPassword(
-                          email: email, password: password);
-                  if (user != null) {
-                    FirebaseFirestore db = FirebaseFirestore.instance;
-                    if (profCode != "") {
+                  if (profCode != "") {
+                    UserCredential user =
+                        await _auth.createUserWithEmailAndPassword(
+                            email: email, password: password);
+                    if (user != null) {
+                      FirebaseFirestore db = FirebaseFirestore.instance;
+                      // if (profCode != "") {
                       await db
                           .collection('PROFCODES')
                           .doc(email)
                           .set({'code': profCode});
+                      // }
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return TimetableScreen(profCode);
+                      }));
+                      // Navigator.pushNamed(context, '/timetable');
+                      // print(user);
+                    } else {
+                      print('User returned as null.');
                     }
-                    Navigator.pushNamed(context, '/timetable');
-                    // print(user);
                   } else {
-                    print('User returned as null.');
+                    print('PROFCODE NOT ENTERED!');
                   }
                   // Navigator.pop(context);
                 } catch (e) {
