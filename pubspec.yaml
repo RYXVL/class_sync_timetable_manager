@@ -95,6 +95,9 @@ flutter:
     - family: norwester
       fonts:
         - asset: fonts/norwester.otf
+    - family: DMSerifDisplay
+      fonts:
+        - asset: fonts/DMSerifDisplay-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

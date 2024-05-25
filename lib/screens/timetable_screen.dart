@@ -178,7 +178,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
                     receivedData.clear();
                     //
                     // timetableWidgets.clear();
-                    timetableWidgets.add(Text('XYZ'));
+                    // timetableWidgets.add(Text('XYZ'));
                     for (var everyDayTimetable in timetable!) {
                       // if (everyDayTimetable['dayOfWeek'] == initialValue) {
                       String dayOfWeek = everyDayTimetable.id;
@@ -229,8 +229,11 @@ class _TimetableScreenState extends State<TimetableScreen> {
                     //     generatePopUpInfoMessage();
                     //   });
                     // }
-                    return ListView(
-                      children: timetableWidgets,
+                    return Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: ListView(
+                        children: timetableWidgets,
+                      ),
                     );
                   } else {
                     // print(snapshot.data);

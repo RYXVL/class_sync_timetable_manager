@@ -20,9 +20,15 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   List<String> filteredResults = [];
+  // String resultsText = '';
 
   List<Text> generateListOfResults() {
+    print('ListGen Res: $filteredResults');
     List<Text> results = [];
+    if (filteredResults.length == 0) {
+      results.add(Text('No faculty available!'));
+      return results;
+    }
     // results.add(const Text('Results: -'));
     for (String result in filteredResults) {
       results.add(Text(result));
@@ -34,12 +40,36 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Filter Vacancy Screen',
+        backgroundColor: Color(0xFF141319),
+        automaticallyImplyLeading: false,
+        leading: TextButton(
+          // style: ButtonStyle(
+          // backgroundColor: ,
+          // ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
         ),
+        title: const Text(
+          'Filter Vacancy',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 40.0,
+            fontFamily: 'Gladifilthefte',
+          ),
+        ),
+        // title: const Text(
+        //   'Filter Vacancy Screen',
+        // ),
       ),
       body: SafeArea(
           child: Column(
+        // crossAxisAlignment: CrossAxisAlignment.stretch,
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           // Row(
           //   children: [
@@ -56,32 +86,71 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
           //   ],
           // ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const Text('Day of Week: '),
-              DropdownButton(
-                value: initialDay,
-                items: dummyData.generateDaysInAWeekMenuItems(),
-                onChanged: (newValue) {
-                  setState(() {
-                    initialDay = newValue;
-                  });
-                },
+              const Text(
+                'Day of Week: ',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontFamily: 'DMSerifDisplay',
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 2.0),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton(
+                      value: initialDay,
+                      items: dummyData.generateDaysInAWeekMenuItems(),
+                      onChanged: (newValue) {
+                        setState(() {
+                          filteredResults.clear();
+                          initialDay = newValue;
+                        });
+                      },
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const Text('Slot: '),
-              DropdownButton(
-                value: initialSlot,
-                items: dummyData.generateTimeRangeMenuItems(),
-                onChanged: (newValue) {
-                  setState(() {
-                    initialSlot = newValue;
-                    List sep = newValue.split('-');
-                    print('start-${sep[0]} | end-${sep[1]}');
-                  });
-                },
+              const Text(
+                'Slot: ',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontFamily: 'DMSerifDisplay',
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 2.0),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    value: initialSlot,
+                    items: dummyData.generateTimeRangeMenuItems(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        filteredResults.clear();
+                        initialSlot = newValue;
+                        // List sep = newValue.split('-');
+                        // print('start-${sep[0]} | end-${sep[1]}');
+                      });
+                    },
+                  ),
+                ),
               ),
             ],
           ),
@@ -113,6 +182,9 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
           //     ),
           //   ],
           // )
+          SizedBox(
+            height: 30,
+          ),
           RegistrationLoginButton(
             'Search',
             () async {
@@ -142,7 +214,7 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
                         break;
                       }
                     }
-                    print(filteredResults);
+                    print('Profs free: $filteredResults');
                   } else {
                     print('Document does not exist');
                   }
