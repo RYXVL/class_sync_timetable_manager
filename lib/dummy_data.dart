@@ -1073,7 +1073,7 @@ class DummyData {
     }
   }
 
-  void getProfCode() async {
+  Future<String> getProfCode() async {
     String? userEmail = FirebaseAuth.instance.currentUser?.email;
     print(userEmail);
     FirebaseFirestore db = FirebaseFirestore.instance;
@@ -1084,8 +1084,10 @@ class DummyData {
           profCodeSnapshot.data() as Map<String, dynamic>;
       String profCode = data['code'];
       print(profCode);
+      return profCode;
     } else {
       print('No such document exists!');
+      return 'ERROR';
     }
   }
 }

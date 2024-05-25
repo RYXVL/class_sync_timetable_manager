@@ -1,8 +1,8 @@
-import 'package:class_sync_timetable_manager/dummy_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
 
+import '../custom_widgets/day_widget.dart';
 import '../custom_widgets/lesson_plan_button.dart';
 import '../custom_widgets/registration_login_button.dart';
 import '../utils/pdf_generator.dart';
@@ -28,27 +28,28 @@ class _TimetableScreenState extends State<TimetableScreen> {
     'Saturday',
   ];
 
-  List<DropdownMenuItem> generateDaysDropdownMenuItems() {
-    List<DropdownMenuItem> workingDaysDropdownMenuItems = [];
-    for (String day in workingDays) {
-      workingDaysDropdownMenuItems.add(
-        DropdownMenuItem(
-          child: Text(day),
-          value: day,
-        ),
-      );
-    }
-    return workingDaysDropdownMenuItems;
-  }
+  // List<DropdownMenuItem> generateDaysDropdownMenuItems() {
+  //   List<DropdownMenuItem> workingDaysDropdownMenuItems = [];
+  //   for (String day in workingDays) {
+  //     workingDaysDropdownMenuItems.add(
+  //       DropdownMenuItem(
+  //         child: Text(day),
+  //         value: day,
+  //       ),
+  //     );
+  //   }
+  //   return workingDaysDropdownMenuItems;
+  // }
 
   String initialValue = 'Monday';
 
   bool firstData = true;
   int initialBuild = 0;
+  // String fetchedProfCode = '';
 
   @override
   void initState() {
-    DummyData().getProfCode();
+    // fetchedProfCode = DummyData().getProfCode() as String;
     // getProfCode();
     // dummyData.getDummyDataFromFirebaseFirestore();
     // dummyData.getDummyDataFromFirebaseFirestoreStreams();
@@ -68,27 +69,27 @@ class _TimetableScreenState extends State<TimetableScreen> {
     );
   }
 
-  void updateListViewWithSelectedDay(
-      String professorCode, List<Text> timetableWidgets) {
-    timetableWidgets.clear();
-    timetableWidgets.add(Text(professorCode));
-    for (var everyDayTimetable in receivedData) {
-      if (everyDayTimetable['dayOfWeek'] == initialValue) {
-        String dayOfWeek = everyDayTimetable['dayOfWeek'];
-        timetableWidgets.add(Text(dayOfWeek));
-        for (var slot in everyDayTimetable['timetable']) {
-          String timeStart = slot['timeStart'];
-          String timeEnd = slot['timeEnd'];
-          String subjectName = slot['subjectName'];
-          String semester = slot['semester'];
-          String section = slot['section'];
-          timetableWidgets.add(Text(
-              '$timeStart - $timeEnd: $subjectName -> $semester-$section'));
-        }
-        break;
-      }
-    }
-  }
+  // void updateListViewWithSelectedDay(
+  //     String professorCode, List<Text> timetableWidgets) {
+  //   timetableWidgets.clear();
+  //   timetableWidgets.add(Text(professorCode));
+  //   for (var everyDayTimetable in receivedData) {
+  //     if (everyDayTimetable['dayOfWeek'] == initialValue) {
+  //       String dayOfWeek = everyDayTimetable['dayOfWeek'];
+  //       timetableWidgets.add(Text(dayOfWeek));
+  //       for (var slot in everyDayTimetable['timetable']) {
+  //         String timeStart = slot['timeStart'];
+  //         String timeEnd = slot['timeEnd'];
+  //         String subjectName = slot['subjectName'];
+  //         String semester = slot['semester'];
+  //         String section = slot['section'];
+  //         timetableWidgets.add(Text(
+  //             '$timeStart - $timeEnd: $subjectName -> $semester-$section'));
+  //       }
+  //       break;
+  //     }
+  //   }
+  // }
 
   List receivedData = [];
 
@@ -123,7 +124,29 @@ class _TimetableScreenState extends State<TimetableScreen> {
     initialBuild++;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Timetable Screen'),
+        backgroundColor: Color(0xFF141319),
+        automaticallyImplyLeading: false,
+        leading: TextButton(
+          // style: ButtonStyle(
+          // backgroundColor: ,
+          // ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
+        title: const Text(
+          'TIMETABLE',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 40.0,
+            fontFamily: 'Gladifilthefte',
+          ),
+        ),
+        // title: const Text('Timetable Screen'),
       ),
       body: SafeArea(
         // child: ListView(
@@ -159,7 +182,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
                     for (var everyDayTimetable in timetable!) {
                       // if (everyDayTimetable['dayOfWeek'] == initialValue) {
                       String dayOfWeek = everyDayTimetable.id;
-                      timetableWidgets.add(Text(dayOfWeek));
+                      timetableWidgets.add(DayWidget(dayOfWeek));
                       for (var slot in everyDayTimetable['timetable']) {
                         String timeStart = slot['timeStart'];
                         String timeEnd = slot['timeEnd'];
@@ -217,9 +240,16 @@ class _TimetableScreenState extends State<TimetableScreen> {
                 },
               ),
             ),
+            Divider(
+              color: Colors.grey, // Color of the line
+              thickness: 1, // Thickness of the line
+              indent: 20, // Empty space to the leading edge of the divider.
+              endIndent: 20, // Empty space to the trailing edge of the divider.
+            ),
             RegistrationLoginButton(
               'Filter Vacancy Screen',
               () {
+                // print('Ryan'.split(''));
                 Navigator.pushNamed(context, '/filtervacancy');
               },
             ),
@@ -229,14 +259,21 @@ class _TimetableScreenState extends State<TimetableScreen> {
                 Navigator.pushNamed(context, '/pushcsv');
               },
             ),
-            MaterialButton(
-              onPressed: () {
+            RegistrationLoginButton(
+              'Generate Lesson Plan',
+              () {
+                // Navigator.pushNamed(context, '/pushcsv');
                 generatePDFFromLessonPlanData();
               },
-              // final pdfFile = await PdfInvoice
-              // },
-              child: Text('Generate Lesson Plan'),
-            )
+            ),
+            // MaterialButton(
+            //   onPressed: () {
+            //     generatePDFFromLessonPlanData();
+            //   },
+            //   // final pdfFile = await PdfInvoice
+            //   // },
+            //   child: Text('Generate Lesson Plan'),
+            // )
           ],
         ),
       ),

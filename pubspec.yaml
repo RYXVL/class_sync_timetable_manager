@@ -92,6 +92,9 @@ flutter:
     - family: Gladifilthefte
       fonts:
         - asset: fonts/Gladifilthefte.ttf
+    - family: norwester
+      fonts:
+        - asset: fonts/norwester.otf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

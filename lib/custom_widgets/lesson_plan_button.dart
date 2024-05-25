@@ -1,3 +1,4 @@
+import 'package:class_sync_timetable_manager/custom_widgets/timeslot_widget.dart';
 import 'package:class_sync_timetable_manager/screens/lesson_plan_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -57,8 +58,10 @@ class LessonPlanButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      padding: EdgeInsets.zero,
       onPressed: getButtonFunction(),
-      child: Text(getButtonText()),
+      // child: Text(getButtonText()),
+      child: TimeslotWidget(timeStart, timeEnd, semester, section, subjectName),
     );
   }
 }
