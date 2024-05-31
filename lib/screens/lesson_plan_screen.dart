@@ -5,13 +5,14 @@ import '../dummy_data.dart';
 
 class LessonPlanScreen extends StatefulWidget {
   // final Object? arguments;
+  final String profCode;
   final String timeslot;
   final String section;
   final String semester;
   final String subjectName;
 
-  const LessonPlanScreen(
-      this.timeslot, this.section, this.semester, this.subjectName);
+  const LessonPlanScreen(this.profCode, this.timeslot, this.section,
+      this.semester, this.subjectName);
 
   // const LessonPlanScreen({Key? key}) : super(key: key);
 
@@ -179,7 +180,7 @@ class _LessonPlanScreenState extends State<LessonPlanScreen> {
                   "subjectName": widget.subjectName
                 };
                 DummyData().insertLessonPlanInformation(
-                    'ABC', scheduleData, lessonPlanData);
+                    widget.profCode, scheduleData, lessonPlanData);
               },
             ),
             // MaterialButton(

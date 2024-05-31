@@ -24,7 +24,7 @@ class PDFGenerator {
     ));
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd-hh-mm-ss').format(now);
-    return PDFOperator.saveDocument('lesson_plan-$formattedDate.pdf', pdf);
+    return PDFOperator().saveDocument('lesson_plan-$formattedDate.pdf', pdf);
   }
 
   // static Widget buildSupplierAddress(Supplier supplier) => Column(

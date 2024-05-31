@@ -29,8 +29,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   // TODO: Remove this default email and password put for testing
-  String email = 'test1@email.com';
-  String password = 'test1123';
+  String email = 'xyz@email.com';
+  String password = 'xyz@123';
   final _auth = FirebaseAuth.instance;
 
   @override
@@ -109,6 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (user != null) {
                     String profCode = await DummyData().getProfCode();
                     // print(user);
+                    print('Prof code inside login screen: $profCode');
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return TimetableScreen(profCode);

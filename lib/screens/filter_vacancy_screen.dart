@@ -50,6 +50,30 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
     return results;
   }
 
+  Future<List<String>> getProdCodeList() async {
+    List<String> profCodeList = [];
+    // String? userEmail = FirebaseAuth.instance.currentUser?.email;
+    // print(userEmail);
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    dynamic profCodesCollectionSnapshot =
+        await db.collection('PROFCODES').get();
+    for (var profCodeDoc in profCodesCollectionSnapshot.docs) {
+      profCodeList.add(profCodeDoc['code']);
+    }
+    print(profCodeList);
+    // if (profCodeSnapshot.exists) {
+    //   Map<String, dynamic> data =
+    //       profCodeSnapshot.data() as Map<String, dynamic>;
+    //   String profCode = data['code'];
+    //   print(profCode);
+    //   return profCode;
+    // } else {
+    //   print('No such document exists!');
+    //   return 'ERROR';
+    // }
+    return profCodeList;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -203,8 +227,9 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
             'Search',
             () async {
               filteredResults.clear();
+              List<String> profCodeList = await getProdCodeList();
               List startAndStopSlot = initialSlot.split('-');
-              for (String profCode in DummyData.profCodes) {
+              for (String profCode in profCodeList) {
                 var doc = db.collection(profCode).doc(initialDay);
                 doc.get().then((DocumentSnapshot documentSnapshot) {
                   if (documentSnapshot.exists) {

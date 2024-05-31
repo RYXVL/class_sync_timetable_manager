@@ -1051,6 +1051,24 @@ class DummyData {
         }
         print('Data from document: $data');
       } else {
+        // doc(dayOfWeek)
+        //     .set({'timetable': timetable})
+        await db.collection(profCode).doc('Lesson Plan').set({
+          formattedDate: {
+            lessonInfo['timeslot']: {
+              'data': lessonPlanData,
+              'section': lessonInfo['section'],
+              'semester': lessonInfo['semester'],
+              'subjectName': lessonInfo['subjectName'],
+            },
+          },
+          // 'dayOfWeek': dayOfWeek,
+          // 'timeStart': timeStart,
+          // 'timeEnd': timeEnd,
+          // 'subjectName': subjectName,
+          // 'semester': semester,
+          // 'section': section,
+        });
         print('Document does not exist');
       }
       // lessonInfo.forEach((key, value) {

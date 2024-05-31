@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class PushCSVScreen extends StatefulWidget {
-  const PushCSVScreen({Key? key}) : super(key: key);
+  // const PushCSVScreen({Key? key}) : super(key: key);
+  String profCode;
+  PushCSVScreen(this.profCode);
 
   @override
   State<PushCSVScreen> createState() => _PushCSVScreenState();
@@ -66,6 +68,13 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
     } else {
       print("Error picking up the file!");
     }
+  }
+
+  @override
+  void initState() {
+    print('Prof code in push csv screen: ${widget.profCode}');
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
@@ -154,7 +163,7 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
                       // }
                     }
                     DummyData().insertDummyDataInFirestoreV4(
-                        'FilePickerTest', timetableObjects);
+                        widget.profCode, timetableObjects);
                   },
                   child: const Text(
                     'Insert From CSV',

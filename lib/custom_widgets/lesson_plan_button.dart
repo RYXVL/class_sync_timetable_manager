@@ -3,6 +3,7 @@ import 'package:class_sync_timetable_manager/screens/lesson_plan_screen.dart';
 import 'package:flutter/material.dart';
 
 class LessonPlanButton extends StatelessWidget {
+  String profCode;
   String section;
   String semester;
   String subjectName;
@@ -16,7 +17,7 @@ class LessonPlanButton extends StatelessWidget {
   //     this.timeStart, this.timeEnd, this.onPressed,
   //     {super.key});
 
-  LessonPlanButton(this.section, this.semester, this.subjectName,
+  LessonPlanButton(this.profCode, this.section, this.semester, this.subjectName,
       this.timeStart, this.timeEnd, this.context,
       {super.key});
 
@@ -37,7 +38,7 @@ class LessonPlanButton extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => LessonPlanScreen(
+              builder: (context) => LessonPlanScreen(profCode,
                   "$timeStart-$timeEnd", section, semester, subjectName)),
         );
         // Navigator.pushNamed(

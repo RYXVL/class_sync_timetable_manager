@@ -11,6 +11,7 @@ class RegistrationLoginTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
+        obscureText: hintText == 'Enter Your Password' ? true : false,
         decoration: InputDecoration(
           hintText: hintText,
           border: OutlineInputBorder(

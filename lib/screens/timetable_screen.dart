@@ -1,3 +1,4 @@
+import 'package:class_sync_timetable_manager/screens/push_csv_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
@@ -105,7 +106,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
     //   formattedDate = lessonInfo["overrideDate"];
     // }
     dynamic lessonPlanSnapshot =
-        await db.collection('ABC').doc('Lesson Plan').get();
+        await db.collection(widget.profCode).doc('Lesson Plan').get();
     if (lessonPlanSnapshot.exists) {
       Map<String, dynamic> completeLessonPlanData =
           lessonPlanSnapshot.data() as Map<String, dynamic>;
@@ -172,45 +173,53 @@ class _TimetableScreenState extends State<TimetableScreen> {
             // ),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: db.collection('XYZ').snapshots(),
+                stream: db.collection(widget.profCode).snapshots(),
                 builder: (context, snapshot) {
+                  // start
                   if (snapshot.hasData) {
                     final timetable = snapshot.data?.docs;
                     List<Widget> timetableWidgets = [];
-                    // TODO: Remove hardcoded professor code
-                    // timetableWidgets.add(const Text('XYZ'));
+                    Map<String, List<LessonPlanButton>> tempBuffer = {};
                     receivedData.clear();
-                    // setState(() {
-                    //   generatePopUpInfoMessage();
-                    // });
-
-                    //
-                    // timetableWidgets.clear();
-                    // timetableWidgets.add(Text('XYZ'));
                     for (var everyDayTimetable in timetable!) {
-                      // if (everyDayTimetable['dayOfWeek'] == initialValue) {
                       String dayOfWeek = everyDayTimetable.id;
-                      timetableWidgets.add(DayWidget(dayOfWeek));
+                      if (!workingDays.contains(dayOfWeek)) {
+                        continue;
+                      }
+                      tempBuffer[dayOfWeek] = [];
+                      // timetableWidgets.add(DayWidget(dayOfWeek));
                       for (var slot in everyDayTimetable['timetable']) {
                         String timeStart = slot['timeStart'];
                         String timeEnd = slot['timeEnd'];
                         String subjectName = slot['subjectName'];
                         String semester = slot['semester'];
                         String section = slot['section'];
-                        timetableWidgets.add(LessonPlanButton(section, semester,
-                            subjectName, timeStart, timeEnd, context));
+                        tempBuffer[dayOfWeek]?.add(LessonPlanButton(
+                            widget.profCode,
+                            section,
+                            semester,
+                            subjectName,
+                            timeStart,
+                            timeEnd,
+                            context));
+                        // timetableWidgets.add(LessonPlanButton(
+                        //     widget.profCode,
+                        //     section,
+                        //     semester,
+                        //     subjectName,
+                        //     timeStart,
+                        //     timeEnd,
+                        //     context));
                       }
-                      // break;
-                      // }
                     }
-                    //
-                    // for (var everyDayTimetable in timetable!) {
-                    //
-                    //   receivedData.add({
-                    //     'dayOfWeek': everyDayTimetable.id,
-                    //     'timetable': everyDayTimetable['timetable']
-                    //   });
-                    // }
+
+                    for (String day in workingDays) {
+                      timetableWidgets.add(DayWidget(day));
+                      for (var timetableOfSlot in tempBuffer[day]!) {
+                        timetableWidgets.add(timetableOfSlot);
+                      }
+                      // timetableWidgets.addAll(tempBuffer[day]);
+                    }
 
                     // updateListViewWithSelectedDay('XYZ', timetableWidgets);
                     // () {
@@ -267,7 +276,10 @@ class _TimetableScreenState extends State<TimetableScreen> {
             RegistrationLoginButton(
               'Push CSV To Firebase Firestore',
               () {
-                Navigator.pushNamed(context, '/pushcsv');
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return PushCSVScreen(widget.profCode);
+                }));
+                // Navigator.pushNamed(context, '/pushcsv');
               },
             ),
             RegistrationLoginButton(
