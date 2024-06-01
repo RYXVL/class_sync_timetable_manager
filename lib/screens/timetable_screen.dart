@@ -126,7 +126,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
 
   @override
   Widget build(BuildContext context) {
-    initialBuild++;
+    // initialBuild++;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF141319),
@@ -223,15 +223,23 @@ class _TimetableScreenState extends State<TimetableScreen> {
 
                     // updateListViewWithSelectedDay('XYZ', timetableWidgets);
                     // () {
-                    //   if (firstData) {
-                    //     firstData = false;
-                    //   } else {
-                    //     QuickAlert.show(
-                    //       context: context,
-                    //       type: QuickAlertType.info,
-                    //       text: 'There has been an update in your time table!',
-                    //     );
-                    //   }
+                    if (firstData) {
+                      firstData = false;
+                      print('Variable firstData has been inverted!');
+                    } else {
+                      WidgetsBinding.instance!.addPostFrameCallback((_) {
+                        QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.info,
+                          text: 'There has been an update in your time table!',
+                        );
+                      });
+                      // QuickAlert.show(
+                      //   context: context,
+                      //   type: QuickAlertType.info,
+                      //   text: 'There has been an update in your time table!',
+                      // );
+                    }
                     // };
                     // fix this bug where the alert is happening even
                     // when just day option is changed apart from
@@ -246,6 +254,10 @@ class _TimetableScreenState extends State<TimetableScreen> {
                     //     generatePopUpInfoMessage();
                     //   });
                     // }
+                    // setState(() {
+                    //   generatePopUpInfoMessage();
+                    // });
+                    // generatePopUpInfoMessage();
                     return Padding(
                       padding: EdgeInsets.only(top: 10),
                       child: ListView(
