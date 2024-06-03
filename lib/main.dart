@@ -6,9 +6,6 @@ import 'screens/filter_vacancy_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/registration_screen.dart';
 import 'screens/welcome_screen.dart';
-// void main() {
-//   runApp(const MyApp());
-// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +29,6 @@ class MyApp extends StatelessWidget {
         // '/lessonplan': (context) => const LessonPlanScreen(Object),
       },
       initialRoute: '/',
-      // home: const WelcomeScreen(),
     );
   }
 }

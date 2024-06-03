@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../dummy_data.dart';
 
 class LessonPlanScreen extends StatefulWidget {
-  // final Object? arguments;
   final String profCode;
   final String timeslot;
   final String section;
@@ -13,8 +12,6 @@ class LessonPlanScreen extends StatefulWidget {
 
   const LessonPlanScreen(this.profCode, this.timeslot, this.section,
       this.semester, this.subjectName);
-
-  // const LessonPlanScreen({Key? key}) : super(key: key);
 
   @override
   State<LessonPlanScreen> createState() => _LessonPlanScreenState();
@@ -30,9 +27,6 @@ class _LessonPlanScreenState extends State<LessonPlanScreen> {
         backgroundColor: Color(0xFF141319),
         automaticallyImplyLeading: false,
         leading: TextButton(
-          // style: ButtonStyle(
-          // backgroundColor: ,
-          // ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -49,9 +43,6 @@ class _LessonPlanScreenState extends State<LessonPlanScreen> {
             fontFamily: 'Gladifilthefte',
           ),
         ),
-        // title: const Text(
-        //   'Lesson Plan Screen',
-        // ),
       ),
       body: SafeArea(
         child: Column(
@@ -63,7 +54,6 @@ class _LessonPlanScreenState extends State<LessonPlanScreen> {
                 fontSize: 25.0,
                 fontFamily: 'DMSerifDisplay',
               ),
-              // textAlign: TextAlign.left,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -78,21 +68,21 @@ class _LessonPlanScreenState extends State<LessonPlanScreen> {
                   labelText: '',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.black,
                       width: 2.0,
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.black,
                       width: 2.0,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.black,
                       width: 2.0,
                     ),
@@ -100,7 +90,7 @@ class _LessonPlanScreenState extends State<LessonPlanScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             const Text(
@@ -111,18 +101,6 @@ class _LessonPlanScreenState extends State<LessonPlanScreen> {
                 fontFamily: 'DMSerifDisplay',
               ),
             ),
-            // AnimatedTextKit(
-            //   repeatForever: true,
-            //   animatedTexts: [
-            //     FadeAnimatedText(
-            //         'NOTE: Leave empty if today\'s date to be chosen.'),
-            //     // FadeAnimatedText('do it RIGHT!!'),
-            //     // FadeAnimatedText('do it RIGHT NOW!!!'),
-            //   ],
-            //   onTap: () {
-            //     print("Tap Event");
-            //   },
-            // ),
             const Text(
               'NOTE: Leave empty if today\'s date to be chosen.',
               style: TextStyle(
@@ -144,21 +122,21 @@ class _LessonPlanScreenState extends State<LessonPlanScreen> {
                   labelText: '',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.black,
                       width: 2.0,
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.black,
                       width: 2.0,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.black,
                       width: 2.0,
                     ),
@@ -166,7 +144,7 @@ class _LessonPlanScreenState extends State<LessonPlanScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             RegistrationLoginButton(
@@ -183,20 +161,6 @@ class _LessonPlanScreenState extends State<LessonPlanScreen> {
                     widget.profCode, scheduleData, lessonPlanData);
               },
             ),
-            // MaterialButton(
-            //   onPressed: () {
-            //     Map<String, String> scheduleData = {
-            //       "overrideDate": overrideDate,
-            //       "timeslot": widget.timeslot,
-            //       "section": widget.section,
-            //       "semester": widget.semester,
-            //       "subjectName": widget.subjectName
-            //     };
-            //     DummyData().insertLessonPlanInformation(
-            //         'ABC', scheduleData, lessonPlanData);
-            //   },
-            //   child: Text('Insert Lesson Plan'),
-            // )
           ],
         ),
       ),

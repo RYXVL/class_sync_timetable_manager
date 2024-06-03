@@ -7,7 +7,6 @@ class TimeslotWidget extends StatelessWidget {
   String section;
   String subjectName;
 
-  // const TimeslotWidget({Key? key}) : super(key: key);
   TimeslotWidget(this.timeStart, this.timeEnd, this.semester, this.section,
       this.subjectName);
 
@@ -19,25 +18,18 @@ class TimeslotWidget extends StatelessWidget {
         color: Colors.blueGrey,
         shape:
             BeveledRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        // decoration: BoxDecoration(
-        //   // color: Colors.blue,
-        //   borderRadius: BorderRadius.circular(20), // Circular radius
-        // ),
         child: Padding(
           padding: const EdgeInsets.all(7.0),
           child: Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
                 child: Container(
                   height: 62,
-                  // color: Color(0xFFA0DEFF),
                   color: Colors.blueGrey,
                   child: Center(
                     child: Text(
                       '$timeStart-$timeEnd',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 20,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
@@ -48,7 +40,6 @@ class TimeslotWidget extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       color:

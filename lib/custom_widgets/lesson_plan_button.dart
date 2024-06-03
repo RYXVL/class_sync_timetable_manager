@@ -10,12 +10,7 @@ class LessonPlanButton extends StatelessWidget {
   String timeStart;
   String timeEnd;
 
-  // dynamic onPressed;
   BuildContext context;
-
-  // LessonPlanButton(this.section, this.semester, this.subjectName,
-  //     this.timeStart, this.timeEnd, this.onPressed,
-  //     {super.key});
 
   LessonPlanButton(this.profCode, this.section, this.semester, this.subjectName,
       this.timeStart, this.timeEnd, this.context,
@@ -41,16 +36,6 @@ class LessonPlanButton extends StatelessWidget {
               builder: (context) => LessonPlanScreen(profCode,
                   "$timeStart-$timeEnd", section, semester, subjectName)),
         );
-        // Navigator.pushNamed(
-        //   context,
-        //   '/lessonplan',
-        //   arguments: {
-        //     "timeslot": "$timeStart-$timeEnd",
-        //     "section": section,
-        //     "semester": semester,
-        //     "subjectName": subjectName,
-        //   },
-        // );
       };
     }
     return buttonFunction;
@@ -61,7 +46,6 @@ class LessonPlanButton extends StatelessWidget {
     return MaterialButton(
       padding: EdgeInsets.zero,
       onPressed: getButtonFunction(),
-      // child: Text(getButtonText()),
       child: TimeslotWidget(timeStart, timeEnd, semester, section, subjectName),
     );
   }

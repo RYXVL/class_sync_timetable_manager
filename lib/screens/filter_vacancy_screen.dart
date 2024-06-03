@@ -20,7 +20,6 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   List<String> filteredResults = [];
-  // String resultsText = '';
 
   List<Text> generateListOfResults() {
     print('ListGen Res: $filteredResults');
@@ -36,7 +35,6 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
       ));
       return results;
     }
-    // results.add(const Text('Results: -'));
     for (String result in filteredResults) {
       results.add(Text(
         result,
@@ -52,8 +50,6 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
 
   Future<List<String>> getProdCodeList() async {
     List<String> profCodeList = [];
-    // String? userEmail = FirebaseAuth.instance.currentUser?.email;
-    // print(userEmail);
     FirebaseFirestore db = FirebaseFirestore.instance;
     dynamic profCodesCollectionSnapshot =
         await db.collection('PROFCODES').get();
@@ -61,16 +57,6 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
       profCodeList.add(profCodeDoc['code']);
     }
     print(profCodeList);
-    // if (profCodeSnapshot.exists) {
-    //   Map<String, dynamic> data =
-    //       profCodeSnapshot.data() as Map<String, dynamic>;
-    //   String profCode = data['code'];
-    //   print(profCode);
-    //   return profCode;
-    // } else {
-    //   print('No such document exists!');
-    //   return 'ERROR';
-    // }
     return profCodeList;
   }
 
@@ -81,9 +67,6 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
         backgroundColor: Color(0xFF141319),
         automaticallyImplyLeading: false,
         leading: TextButton(
-          // style: ButtonStyle(
-          // backgroundColor: ,
-          // ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -100,29 +83,10 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
             fontFamily: 'Gladifilthefte',
           ),
         ),
-        // title: const Text(
-        //   'Filter Vacancy Screen',
-        // ),
       ),
       body: SafeArea(
           child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.center,
-        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          // Row(
-          //   children: [
-          //     const Text('Professor Code: '),
-          //     DropdownButton(
-          //       value: initialProfCode,
-          //       items: dummyData.generateProfCodesMenuItems(),
-          //       onChanged: (newValue) {
-          //         setState(() {
-          //           initialProfCode = newValue;
-          //         });
-          //       },
-          //     ),
-          //   ],
-          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -183,8 +147,6 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
                       setState(() {
                         filteredResults.clear();
                         initialSlot = newValue;
-                        // List sep = newValue.split('-');
-                        // print('start-${sep[0]} | end-${sep[1]}');
                       });
                     },
                   ),
@@ -192,35 +154,7 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
               ),
             ],
           ),
-          // Row(
-          //   children: [
-          //     const Text('Start Time Slot: '),
-          //     DropdownButton(
-          //       value: startTimeSlot,
-          //       items: dummyData.generateTimeSlotsMenuItems(),
-          //       onChanged: (newValue) {
-          //         setState(() {
-          //           startTimeSlot = newValue;
-          //         });
-          //       },
-          //     ),
-          //   ],
-          // ),
-          // Row(
-          //   children: [
-          //     const Text('End Time Slot: '),
-          //     DropdownButton(
-          //       value: endTimeSlot,
-          //       items: dummyData.generateTimeSlotsMenuItems(),
-          //       onChanged: (newValue) {
-          //         setState(() {
-          //           endTimeSlot = newValue;
-          //         });
-          //       },
-          //     ),
-          //   ],
-          // )
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           RegistrationLoginButton(
@@ -233,12 +167,9 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
                 var doc = db.collection(profCode).doc(initialDay);
                 doc.get().then((DocumentSnapshot documentSnapshot) {
                   if (documentSnapshot.exists) {
-                    // Document exists, access its data
                     Map<String, dynamic>? data =
                         documentSnapshot.data() as Map<String, dynamic>?;
-                    // var data = documentSnapshot.data();
                     var completeTimetable = data?['timetable'];
-                    // print(data?['timetable']);
                     for (var timetable in completeTimetable) {
                       if (timetable['timeStart'] == startAndStopSlot[0] &&
                           timetable['timeStart'] == startAndStopSlot[0] &&
@@ -249,7 +180,6 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
                         setState(() {
                           filteredResults.add(profCode);
                         });
-
                         break;
                       }
                     }
@@ -265,11 +195,6 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
           ),
           Expanded(
             child: Container(
-              // padding: EdgeInsets.symmetric(horizontal: 12.0),
-              // decoration: BoxDecoration(
-              //   border: Border.all(color: Colors.black, width: 2.0),
-              //   borderRadius: BorderRadius.circular(8.0),
-              // ),
               child: ListView(
                 children: generateListOfResults(),
               ),

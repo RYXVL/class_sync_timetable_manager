@@ -25,9 +25,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: TextButton(
-          // style: ButtonStyle(
-          // backgroundColor: ,
-          // ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -44,30 +41,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             fontFamily: 'Gladifilthefte',
           ),
         ),
-        // title: const Text('Login Screen'),
-        // Gladifilthefte
-        // title: AnimatedTextKit(
-        //   repeatForever: true,
-        //   animatedTexts: [
-        //     FadeAnimatedText(
-        //       'LOGIN',
-        //       textStyle: TextStyle(color: Colors.white),
-        //     ),
-        // FadeAnimatedText(
-        //   'do it RIGHT!!',
-        //   textStyle: TextStyle(color: Colors.white),
-        // ),
-        // FadeAnimatedText(
-        //   'do it RIGHT NOW!!!',
-        //   textStyle: TextStyle(color: Colors.white),
-        // ),
-        // ],
-        //   onTap: () {
-        //     print("Tap Event");
-        //   },
-        // ),
         backgroundColor: Color(0xFF141319),
-        // title: const Text('Registration Screen'),
       ),
       body: SafeArea(
         child: Column(
@@ -91,7 +65,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   hintText: 'Enter Your Code',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.black,
                     ),
                   ),
@@ -104,31 +78,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 },
               ),
             ),
-            // Row(
-            //   children: [
-            //     // const Text('Enter your code: '),
-            //     Padding(
-            //       padding: const EdgeInsets.all(8.0),
-            //       child: TextFormField(
-            //         decoration: InputDecoration(
-            //           hintText: 'Enter Your Code',
-            //           border: OutlineInputBorder(
-            //             borderRadius: BorderRadius.circular(10),
-            //             borderSide: BorderSide(
-            //               color: Colors.black,
-            //             ),
-            //           ),
-            //         ),
-            //         initialValue: profCode,
-            //         onChanged: (newValue) {
-            //           setState(() {
-            //             profCode = newValue;
-            //           });
-            //         },
-            //       ),
-            //     ),
-            //   ],
-            // ),
             RegistrationLoginButton(
               'Register',
               () async {
@@ -139,25 +88,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             email: email, password: password);
                     if (user != null) {
                       FirebaseFirestore db = FirebaseFirestore.instance;
-                      // if (profCode != "") {
                       await db
                           .collection('PROFCODES')
                           .doc(email)
                           .set({'code': profCode});
-                      // }
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return TimetableScreen(profCode);
                       }));
-                      // Navigator.pushNamed(context, '/timetable');
-                      // print(user);
                     } else {
                       print('User returned as null.');
                     }
                   } else {
                     print('PROFCODE NOT ENTERED!');
                   }
-                  // Navigator.pop(context);
                 } catch (e) {
                   print('Caught Error: $e');
                 }

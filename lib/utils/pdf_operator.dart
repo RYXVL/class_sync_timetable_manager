@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-// import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -32,21 +31,12 @@ class PDFOperator {
     } else {
       throw Exception('Storage permission not granted');
     }
-
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/$name');
-
-    await file.writeAsBytes(bytes);
-
-    return file;
   }
 
   static void openFile(File file) async {
     final url = file.path;
     print('FILEPATH: ${file.path}');
-    // OpenFile
     if (await file.exists()) {
-      // OpenFile
       try {
         final result = await OpenFile.open(url);
         print('Open result: ${result.message}');
@@ -56,12 +46,5 @@ class PDFOperator {
     } else {
       print('File does not exist');
     }
-    // try {
-    //   final result = await OpenFile.open(url);
-    //   print('Open result: ${result.message}');
-    //   // await OpenFile.open(url);
-    // } catch (e) {
-    //   print('EXCEPTION: $e');
-    // }
   }
 }

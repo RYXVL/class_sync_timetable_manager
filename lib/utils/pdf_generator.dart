@@ -8,7 +8,6 @@ import 'pdf_operator.dart';
 
 class PDFGenerator {
   static Future<File> generate(dynamic lessonPlan) async {
-    // Document()
     final pdf = Document();
 
     pdf.addPage(MultiPage(
@@ -18,27 +17,15 @@ class PDFGenerator {
         buildTitle('LESSON PLAN'),
         buildInvoice(lessonPlan),
         Divider(),
-        // buildTotal(invoice),
       ],
-      // footer: (context) => buildFooter(invoice),
     ));
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd-hh-mm-ss').format(now);
     return PDFOperator().saveDocument('lesson_plan-$formattedDate.pdf', pdf);
   }
 
-  // static Widget buildSupplierAddress(Supplier supplier) => Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Text(supplier.name, style: TextStyle(fontWeight: FontWeight.bold)),
-  //         SizedBox(height: 1 * PdfPageFormat.mm),
-  //         Text(supplier.address),
-  //       ],
-  //     );
-
   static Widget buildInvoice(dynamic lessonPlan) {
     final headers = [
-      // 'Description',
       'Date',
       'Timeslot',
       'Semester',
@@ -50,7 +37,6 @@ class PDFGenerator {
     List<List<dynamic>> lessonData = [];
 
     lessonPlan.forEach((date, slotsData) {
-      // String date = key;
       slotsData.forEach((timeslot, data) {
         String mainData = data["data"];
         String section = data["section"];
@@ -59,20 +45,7 @@ class PDFGenerator {
         lessonData
             .add([date, timeslot, semester, section, subjectName, mainData]);
       });
-      // print('Key: $key, Value: $value');
     });
-    // final data = invoice.items.map((item) {
-    //   final total = item.unitPrice * item.quantity * (1 + item.vat);
-    //
-    //   return [
-    //     item.description,
-    //     Utils.formatDate(item.date),
-    //     '${item.quantity}',
-    //     '\$ ${item.unitPrice}',
-    //     '${item.vat} %',
-    //     '\$ ${total.toStringAsFixed(2)}',
-    //   ];
-    // }).toList();
 
     return Table.fromTextArray(
       headers: headers,
@@ -99,9 +72,6 @@ class PDFGenerator {
             documentTitle,
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          // SizedBox(height: 0.8 * PdfPageFormat.cm),
-          // Text(invoice.info.description),
-          // SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );
 
@@ -113,178 +83,9 @@ class PDFGenerator {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(profCode),
-              // buildSupplierAddress(invoice.supplier),
-              // Container(
-              //   height: 50,
-              //   width: 50,
-              //   child: BarcodeWidget(
-              //     barcode: Barcode.qrCode(),
-              //     data: invoice.info.number,
-              //   ),
-              // ),
             ],
           ),
           SizedBox(height: 1 * PdfPageFormat.cm),
-          // Row(
-          //   crossAxisAlignment: CrossAxisAlignment.end,
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     buildCustomerAddress(invoice.customer),
-          //     buildInvoiceInfo(invoice.info),
-          //   ],
-          // ),
         ],
       );
 }
-//
-// class PdfInvoiceApi {
-//   // static Future<File> generate(Invoice invoice) async {
-//   //   final pdf = Document();
-//   //
-//   //   pdf.addPage(MultiPage(
-//   //     build: (context) => [
-//   //       buildHeader(invoice),
-//   //       SizedBox(height: 3 * PdfPageFormat.cm),
-//   //       buildTitle(invoice),
-//   //       buildInvoice(invoice),
-//   //       Divider(),
-//   //       buildTotal(invoice),
-//   //     ],
-//   //     footer: (context) => buildFooter(invoice),
-//   //   ));
-//   //
-//   //   return PDFOperator.saveDocument('my_invoice.pdf', pdf: pdf);
-//   // }
-//
-//   static Widget buildCustomerAddress(Customer customer) => Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Text(customer.name, style: TextStyle(fontWeight: FontWeight.bold)),
-//           Text(customer.address),
-//         ],
-//       );
-//
-//   static Widget buildInvoiceInfo(InvoiceInfo info) {
-//     final paymentTerms = '${info.dueDate.difference(info.date).inDays} days';
-//     final titles = <String>[
-//       'Invoice Number:',
-//       'Invoice Date:',
-//       'Payment Terms:',
-//       'Due Date:'
-//     ];
-//     final data = <String>[
-//       info.number,
-//       Utils.formatDate(info.date),
-//       paymentTerms,
-//       Utils.formatDate(info.dueDate),
-//     ];
-//
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: List.generate(titles.length, (index) {
-//         final title = titles[index];
-//         final value = data[index];
-//
-//         return buildText(title: title, value: value, width: 200);
-//       }),
-//     );
-//   }
-//
-//   static Widget buildTotal(Invoice invoice) {
-//     final netTotal = invoice.items
-//         .map((item) => item.unitPrice * item.quantity)
-//         .reduce((item1, item2) => item1 + item2);
-//     final vatPercent = invoice.items.first.vat;
-//     final vat = netTotal * vatPercent;
-//     final total = netTotal + vat;
-//
-//     return Container(
-//       alignment: Alignment.centerRight,
-//       child: Row(
-//         children: [
-//           Spacer(flex: 6),
-//           Expanded(
-//             flex: 4,
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 buildText(
-//                   title: 'Net total',
-//                   value: Utils.formatPrice(netTotal),
-//                   unite: true,
-//                 ),
-//                 buildText(
-//                   title: 'Vat ${vatPercent * 100} %',
-//                   value: Utils.formatPrice(vat),
-//                   unite: true,
-//                 ),
-//                 Divider(),
-//                 buildText(
-//                   title: 'Total amount due',
-//                   titleStyle: TextStyle(
-//                     fontSize: 14,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                   value: Utils.formatPrice(total),
-//                   unite: true,
-//                 ),
-//                 SizedBox(height: 2 * PdfPageFormat.mm),
-//                 Container(height: 1, color: PdfColors.grey400),
-//                 SizedBox(height: 0.5 * PdfPageFormat.mm),
-//                 Container(height: 1, color: PdfColors.grey400),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   static Widget buildFooter(Invoice invoice) => Column(
-//         crossAxisAlignment: CrossAxisAlignment.center,
-//         children: [
-//           Divider(),
-//           SizedBox(height: 2 * PdfPageFormat.mm),
-//           buildSimpleText(title: 'Address', value: invoice.supplier.address),
-//           SizedBox(height: 1 * PdfPageFormat.mm),
-//           buildSimpleText(title: 'Paypal', value: invoice.supplier.paymentInfo),
-//         ],
-//       );
-//
-//   static buildSimpleText({
-//     required String title,
-//     required String value,
-//   }) {
-//     final style = TextStyle(fontWeight: FontWeight.bold);
-//
-//     return Row(
-//       mainAxisSize: MainAxisSize.min,
-//       crossAxisAlignment: pw.CrossAxisAlignment.end,
-//       children: [
-//         Text(title, style: style),
-//         SizedBox(width: 2 * PdfPageFormat.mm),
-//         Text(value),
-//       ],
-//     );
-//   }
-//
-//   static buildText({
-//     required String title,
-//     required String value,
-//     double width = double.infinity,
-//     TextStyle? titleStyle,
-//     bool unite = false,
-//   }) {
-//     final style = titleStyle ?? TextStyle(fontWeight: FontWeight.bold);
-//
-//     return Container(
-//       width: width,
-//       child: Row(
-//         children: [
-//           Expanded(child: Text(title, style: style)),
-//           Text(value, style: unite ? style : null),
-//         ],
-//       ),
-//     );
-//   }
-// }

@@ -972,7 +972,6 @@ class DummyData {
       for (String day in daysInAWeek) {
         dynamic scheduleForDay =
             data[day]; // list of obj {timestart, timeend, subjectname}
-        // print(day)
         await db
             .collection(profCode)
             .doc(day)
@@ -1004,11 +1003,9 @@ class DummyData {
         Map<String, dynamic> data =
             lessonPlanSnapshot.data() as Map<String, dynamic>;
         print(data);
-        // formattedDate = "2024-04-30";
         if (data.containsKey(formattedDate)) {
           dynamic slotsList = data[formattedDate];
           if (slotsList.containsKey(lessonInfo["timeslot"])) {
-            // dynamic slotData = slotsList[lessonInfo["timeslot"]];
             data[formattedDate][lessonInfo["timeslot"]]["data"] =
                 lessonPlanData;
             await db.collection(profCode).doc('Lesson Plan').update(data);
@@ -1024,15 +1021,12 @@ class DummyData {
                 lessonInfo["semester"];
             data[formattedDate][lessonInfo["timeslot"]]["subjectName"] =
                 lessonInfo["subjectName"];
-            // print("Check");
             await db.collection(profCode).doc('Lesson Plan').update(data);
             print('The key "key3" does not exist in the map.');
           }
           print('The key "key2" exists in the map.');
         } else {
-          // print('The key "key2" does not exist in the map.');
           data[formattedDate] = {};
-          // print("Check");
           data[formattedDate][lessonInfo["timeslot"]] = {};
           data[formattedDate][lessonInfo["timeslot"]]["data"] = lessonPlanData;
 
@@ -1042,17 +1036,10 @@ class DummyData {
               lessonInfo["semester"];
           data[formattedDate][lessonInfo["timeslot"]]["subjectName"] =
               lessonInfo["subjectName"];
-          // print("Check");
           await db.collection(profCode).doc('Lesson Plan').update(data);
-
-          // lessonInfo.forEach((key, value) {
-          //   print('$key: $value');
-          // });
         }
         print('Data from document: $data');
       } else {
-        // doc(dayOfWeek)
-        //     .set({'timetable': timetable})
         await db.collection(profCode).doc('Lesson Plan').set({
           formattedDate: {
             lessonInfo['timeslot']: {
@@ -1062,30 +1049,9 @@ class DummyData {
               'subjectName': lessonInfo['subjectName'],
             },
           },
-          // 'dayOfWeek': dayOfWeek,
-          // 'timeStart': timeStart,
-          // 'timeEnd': timeEnd,
-          // 'subjectName': subjectName,
-          // 'semester': semester,
-          // 'section': section,
         });
         print('Document does not exist');
       }
-      // lessonInfo.forEach((key, value) {
-      //   print('$key: $value');
-      // });
-      // print("Lesson Info: $lessonInfo");
-      // print(lessonPlanSnapshot);
-      // await db
-      //     .collection(profCode)
-      //     .doc('Lesson Plan')
-      //     .set({formattedDate: lessonPlanData}).then((value) {
-      //   print('Document inserted successfully!');
-      // }).catchError((error) {
-      //   print('Failed to insert document: $error');
-      // });
-      // }
-      // print('Dummy data insertion into Firestore Completed!');
     } catch (e) {
       print('Caught Error: $e');
     }

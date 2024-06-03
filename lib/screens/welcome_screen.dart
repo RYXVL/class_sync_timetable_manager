@@ -14,15 +14,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color(0xFFE8ECEE),
       appBar: AppBar(
         backgroundColor: Color(0xFF141319),
-        // title: const Center(
-        //   child: Text(
-        //     'Welcome Screen',
-        //     style: TextStyle(color: Colors.white, fontFamily: 'Gladifilthefte'),
-        //   ),
-        // ),
         title: DefaultTextStyle(
           style: const TextStyle(
             fontSize: 40.0,
@@ -36,9 +29,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               RotateAnimatedText('TIMETABLE'),
               RotateAnimatedText('MANAGER'),
             ],
-            // onTap: () {
-            //   print("Tap Event");
-            // },
           ),
         ),
       ),

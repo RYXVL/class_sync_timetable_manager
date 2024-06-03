@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class DayWidget extends StatelessWidget {
-  // const DayWidget({Key? key}) : super(key: key);
   String day;
   DayWidget(this.day);
 
@@ -20,7 +19,6 @@ class DayWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Container(
         decoration: BoxDecoration(
-          // color: daysContainerColor[day],
           color: Color(0xFF141319),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30.0),
@@ -30,8 +28,6 @@ class DayWidget extends StatelessWidget {
           ),
         ),
         width: double.infinity,
-        // padding: EdgeInsets.symmetric(horizontal: 8),
-        // color: daysContainerColor[day],
         child: Center(
           child: Text(
             day,
