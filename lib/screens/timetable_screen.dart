@@ -1,6 +1,7 @@
 import 'package:class_sync_timetable_manager/screens/push_csv_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:quickalert/quickalert.dart';
 
 import '../custom_widgets/day_widget.dart';
@@ -49,6 +50,22 @@ class _TimetableScreenState extends State<TimetableScreen> {
 
   List receivedData = [];
 
+  Future<int> requestStoragePermission() async {
+    if (await Permission.storage.request().isGranted) {
+      print(
+          'FUNC: requestStoragePermission | VAR: NONE | Storage Permission Granted');
+      // Permission is granted
+      // Perform the action that requires storage permission
+      return 0;
+    } else {
+      print(
+          'FUCN: requestStoragePermission | VAR: NONE | Storage Permission NOT Granted');
+      return -1;
+      // Permission is not granted
+      // Handle the lack of permission accordingly
+    }
+  }
+
   void generatePDFFromLessonPlanData() async {
     dynamic lessonPlanSnapshot =
         await db.collection(widget.profCode).doc('Lesson Plan').get();
@@ -56,11 +73,29 @@ class _TimetableScreenState extends State<TimetableScreen> {
       Map<String, dynamic> completeLessonPlanData =
           lessonPlanSnapshot.data() as Map<String, dynamic>;
 
-      print(completeLessonPlanData);
+      print(
+          'FUNC: generatePDFFromLessonPlanData | VAR: completeLessonPlanData | $completeLessonPlanData');
 
-      final pdfFile = await PDFGenerator.generate(completeLessonPlanData);
+      if (await Permission.storage.isGranted) {
+        // Perform the action that requires storage permission
+        print('Storage Permissions Already Granted');
+        final pdfFile = await PDFGenerator.generate(
+            widget.profCode, completeLessonPlanData);
 
-      PDFOperator.openFile(pdfFile);
+        PDFOperator.openFile(pdfFile);
+      } else {
+        int returnCode = await requestStoragePermission();
+        if (returnCode == 0) {
+          print('Return Code 0. Permission Granted.');
+          final pdfFile = await PDFGenerator.generate(
+              widget.profCode, completeLessonPlanData);
+
+          PDFOperator.openFile(pdfFile);
+        } else if (returnCode == -1) {
+          print('Return Code -1. Permission NOT Granted');
+        }
+      }
+
       print('Check2');
     } else {
       print('Document does not exist');

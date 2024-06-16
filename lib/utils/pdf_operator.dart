@@ -20,17 +20,22 @@ class PDFOperator {
     String name,
     Document pdf,
   ) async {
+    print('FUNC: saveDocument | ENTRY');
+
     final bytes = await pdf.save();
-    if (await requestStoragePermission()) {
-      final dir = await getExternalStorageDirectory();
-      final file = File('${dir?.path}/$name');
+    print('FUNC: saveDocument | AFTER await pdf.save()');
+    // if (await requestStoragePermission()) {
+    print('FUNC: saveDocument | REQUEST_PERMISSION_IF_BLOCK');
+    final dir = await getExternalStorageDirectory();
+    final file = File('${dir?.path}/$name');
 
-      await file.writeAsBytes(bytes);
+    await file.writeAsBytes(bytes);
 
-      return file;
-    } else {
-      throw Exception('Storage permission not granted');
-    }
+    return file;
+    // } else {
+    //   print('FUNC: saveDocument | REQUEST_PERMISSION_ELSE_BLOCK');
+    //   throw Exception('CUSTOM_THROWN_ERROR: Storage permission not granted');
+    // }
   }
 
   static void openFile(File file) async {

@@ -7,12 +7,12 @@ import 'package:pdf/widgets.dart';
 import 'pdf_operator.dart';
 
 class PDFGenerator {
-  static Future<File> generate(dynamic lessonPlan) async {
+  static Future<File> generate(String profCode, dynamic lessonPlan) async {
     final pdf = Document();
 
     pdf.addPage(MultiPage(
       build: (context) => [
-        buildHeader('ABC'),
+        buildHeader(profCode),
         SizedBox(height: 3 * PdfPageFormat.cm),
         buildTitle('LESSON PLAN'),
         buildInvoice(lessonPlan),

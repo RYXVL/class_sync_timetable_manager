@@ -5,7 +5,6 @@ import 'package:class_sync_timetable_manager/dummy_data.dart';
 import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class PushCSVScreen extends StatefulWidget {
   String profCode;
@@ -54,7 +53,7 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
         filePath = mainfile.path;
       });
 
-      copyFile(filePath, "assets");
+      // copyFile(filePath, "assets");
     } else {
       print("Error picking up the file!");
     }
@@ -109,8 +108,9 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
                 borderRadius: BorderRadius.circular(5.0),
                 child: TextButton(
                   onPressed: () async {
-                    filePath = "/storage/emulated/0/Documents/UDA.csv";
-                    final rawData = await rootBundle.loadString(filePath);
+                    filePath = filePath;
+                    final rawData = await File(filePath).readAsString();
+                    // final rawData = await rootBundle.loadString(filePath);
                     csvContents = const CsvToListConverter().convert(rawData);
                     List<dynamic> timeSlots =
                         csvContents[0].sublist(1, csvContents[0].length);
@@ -132,7 +132,7 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
                       timetableObjects[dayOfWeek] = daysTimetable;
                     }
                     DummyData().insertDummyDataInFirestoreV4(
-                        widget.profCode, timetableObjects);
+                        'PUSHCSV_TEST1', timetableObjects);
                   },
                   child: const Text(
                     'Insert From CSV',
@@ -140,7 +140,7 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
                   ),
                 ),
               ),
-              Text(filePath),
+              // Text(filePath),
             ],
           ),
         ),
