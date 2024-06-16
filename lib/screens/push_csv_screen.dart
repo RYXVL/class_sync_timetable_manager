@@ -18,6 +18,7 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
   List<List<dynamic>> csvContents = [];
 
   String filePath = "";
+  String daywiseSectionSemester = "";
 
   void copyFile(sourcePath, destinationPath) async {
     try {
@@ -66,6 +67,41 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
     super.initState();
   }
 
+  dynamic extractDaywiseInformation() {
+    Map daywiseInfo = {};
+    if (daywiseSectionSemester == '') {
+      throw Exception(
+          'CUSTOM_THROWN_ERROR: Daywise Section Semester Information NOT Given!');
+    } else {
+      // print(
+      //     'FUNC: extractDaywiseInformation() | VAR: daywiseSectionSemester | $daywiseSectionSemester');
+      // daywiseSectionSemester =
+      //     'Monday-DBSL(B2):Spring:A;DBS:Fall:B|Tuesday-DBS:Fall:C|Thursday-DBS:Winter:C|Friday-DBS:Fall:D|Saturday-DBSL(B1):Fall:E;DBSL(B1):Spring:F';
+      List daywiseInfoList = daywiseSectionSemester.split('|');
+      for (var info in daywiseInfoList) {
+        String day = info.split('-')[0];
+        String daysContent = info.split('-')[1];
+        List subjectDetails = daysContent.split(';');
+        for (var subjectInfo in subjectDetails) {
+          String subjectName = subjectInfo.split(':')[0];
+          String semester = subjectInfo.split(':')[1];
+          String section = subjectInfo.split(':')[2];
+          if (!daywiseInfo.containsKey(day)) {
+            daywiseInfo[day] = {};
+          }
+          if (!daywiseInfo[day].containsKey(subjectName)) {
+            daywiseInfo[day][subjectName] = {};
+          }
+          daywiseInfo[day][subjectName] = {
+            'semester': semester,
+            'section': section,
+          };
+        }
+      }
+    }
+    return daywiseInfo;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,6 +130,7 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 50),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               RegistrationLoginButton(
@@ -102,43 +139,121 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
                   filePicker();
                 },
               ),
-              Material(
-                color: Color(0xFF141319),
-                elevation: 5,
-                borderRadius: BorderRadius.circular(5.0),
-                child: TextButton(
-                  onPressed: () async {
-                    filePath = filePath;
-                    final rawData = await File(filePath).readAsString();
-                    // final rawData = await rootBundle.loadString(filePath);
-                    csvContents = const CsvToListConverter().convert(rawData);
-                    List<dynamic> timeSlots =
-                        csvContents[0].sublist(1, csvContents[0].length);
-                    dynamic timetableObjects = {};
-                    for (int i = 1; i < csvContents.length; i++) {
-                      String dayOfWeek = csvContents[i][0];
-                      List<dynamic> daysSchedule =
-                          csvContents[i].sublist(1, csvContents[i].length);
-                      dynamic daysTimetable = [];
-                      for (int j = 0; j < daysSchedule.length; j++) {
-                        String timeStart = timeSlots[j].split('-')[0].trim();
-                        String timeEnd = timeSlots[j].split('-')[1].trim();
-                        daysTimetable.add({
-                          'timeStart': timeStart,
-                          'timeEnd': timeEnd,
-                          'subjectName': daysSchedule[j]
-                        });
-                      }
-                      timetableObjects[dayOfWeek] = daysTimetable;
-                    }
-                    DummyData().insertDummyDataInFirestoreV4(
-                        'PUSHCSV_TEST1', timetableObjects);
-                  },
-                  child: const Text(
-                    'Insert From CSV',
-                    style: TextStyle(color: Colors.white),
+              Column(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Please enter section (eg: A, B, ...) and semester (eg: Fall, Spring, Summer or Winter) for each subject of each day in the following given sample format!',
+                    style: TextStyle(
+                      // color: Colors.blueGrey,
+                      color: Color(0xFF141319),
+                      fontSize: 15.0,
+                      fontFamily: 'DMSerifDisplay',
+                    ),
                   ),
-                ),
+                  const Text(
+                    'Monday-SubjectName1:Semester1:Section1;SubjectName2:Semester2:Section2;...|Tuesday-SubjectName1:Semester1:Section1;...|...',
+                    style: TextStyle(
+                      color: Colors.blueGrey,
+                      fontSize: 15.0,
+                      fontFamily: 'DMSerifDisplay',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      initialValue: daywiseSectionSemester,
+                      onChanged: (newValue) {
+                        setState(() {
+                          daywiseSectionSemester = newValue;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: '',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Material(
+                    color: Color(0xFF141319),
+                    elevation: 5,
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: TextButton(
+                      onPressed: () async {
+                        filePath = filePath;
+                        final rawData = await File(filePath).readAsString();
+                        // final rawData = await rootBundle.loadString(filePath);
+                        csvContents =
+                            const CsvToListConverter().convert(rawData);
+                        List<dynamic> timeSlots =
+                            csvContents[0].sublist(1, csvContents[0].length);
+                        dynamic timetableObjects = {};
+                        dynamic extractedInfo = extractDaywiseInformation();
+                        // print(
+                        //     'FUNC: extractDaywiseInformation() | $extractedInfo');
+                        for (int i = 1; i < csvContents.length; i++) {
+                          String dayOfWeek = csvContents[i][0];
+                          List<dynamic> daysSchedule =
+                              csvContents[i].sublist(1, csvContents[i].length);
+                          dynamic daysTimetable = [];
+                          // print('DAYSSCHEDULE: $daysSchedule');
+                          for (int j = 0; j < daysSchedule.length; j++) {
+                            String timeStart =
+                                timeSlots[j].split('-')[0].trim();
+                            String timeEnd = timeSlots[j].split('-')[1].trim();
+                            // print('SUBJECTNAME: ${daysSchedule[j]}');
+                            // print(
+                            //     'EXTRACTION: ${extractedInfo[dayOfWeek][daysSchedule[j]]}');
+                            // print(
+                            //     'SEMESTER: ${extractedInfo[dayOfWeek][daysSchedule[j]]['semester']}');
+                            // print(
+                            //     'SECTION: ${extractedInfo[dayOfWeek][daysSchedule[j]]['section']}');
+                            daysTimetable.add({
+                              'timeStart': timeStart,
+                              'timeEnd': timeEnd,
+                              'subjectName': daysSchedule[j],
+                              'semester': daysSchedule[j] == ''
+                                  ? ''
+                                  : extractedInfo[dayOfWeek][daysSchedule[j]]
+                                      ['semester'],
+                              'section': daysSchedule[j] == ''
+                                  ? ''
+                                  : extractedInfo[dayOfWeek][daysSchedule[j]]
+                                      ['section'],
+                            });
+                          }
+                          timetableObjects[dayOfWeek] = daysTimetable;
+                        }
+                        DummyData().insertDummyDataInFirestoreV4(
+                            'PUSHCSV_TEST2', timetableObjects);
+                      },
+                      child: const Text(
+                        'Insert From CSV',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               // Text(filePath),
             ],
