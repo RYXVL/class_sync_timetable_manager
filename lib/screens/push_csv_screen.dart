@@ -23,17 +23,14 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
   void copyFile(sourcePath, destinationPath) async {
     try {
       File sourceFile = File(sourcePath);
-      print('Check1');
       if (await sourceFile.exists()) {
-        print("Check 3");
         await sourceFile.copy(destinationPath);
-        print('Check2');
         print('File copied successfully.');
       } else {
         print('Source file does not exist.');
       }
     } catch (e) {
-      print('Error: $e');
+      print('CAUGHT_EXCEPTION: $e');
     }
   }
 
@@ -60,7 +57,6 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
 
   @override
   void initState() {
-    print('Prof code in push csv screen: ${widget.profCode}');
     super.initState();
   }
 

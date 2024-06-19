@@ -20,11 +20,7 @@ class PDFOperator {
     String name,
     Document pdf,
   ) async {
-    print('FUNC: saveDocument | ENTRY');
-
     final bytes = await pdf.save();
-    print('FUNC: saveDocument | AFTER await pdf.save()');
-    print('FUNC: saveDocument | REQUEST_PERMISSION_IF_BLOCK');
     final dir = await getExternalStorageDirectory();
     final file = File('${dir?.path}/$name');
     await file.writeAsBytes(bytes);
@@ -37,12 +33,12 @@ class PDFOperator {
     if (await file.exists()) {
       try {
         final result = await OpenFile.open(url);
-        print('Open result: ${result.message}');
+        print('Open Result: ${result.message}');
       } catch (e) {
-        print('EXCEPTION: $e');
+        print('CAUGHT_EXCEPTION: $e');
       }
     } else {
-      print('File does not exist');
+      print('File does not exist!');
     }
   }
 }

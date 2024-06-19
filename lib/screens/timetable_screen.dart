@@ -36,9 +36,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
   int initialBuild = 0;
 
   @override
-  void initState() {
-    print('Inside timetable screen init state - profCode: ${widget.profCode}');
-  }
+  void initState() {}
 
   void generatePopUpInfoMessage() {
     QuickAlert.show(
@@ -52,12 +50,8 @@ class _TimetableScreenState extends State<TimetableScreen> {
 
   Future<int> requestStoragePermission() async {
     if (await Permission.storage.request().isGranted) {
-      print(
-          'FUNC: requestStoragePermission | VAR: NONE | Storage Permission Granted');
       return 0;
     } else {
-      print(
-          'FUCN: requestStoragePermission | VAR: NONE | Storage Permission NOT Granted');
       return -1;
     }
   }
@@ -68,15 +62,10 @@ class _TimetableScreenState extends State<TimetableScreen> {
     if (lessonPlanSnapshot.exists) {
       Map<String, dynamic> completeLessonPlanData =
           lessonPlanSnapshot.data() as Map<String, dynamic>;
-
-      print(
-          'FUNC: generatePDFFromLessonPlanData | VAR: completeLessonPlanData | $completeLessonPlanData');
-
       if (await Permission.storage.isGranted) {
         print('Storage Permissions Already Granted');
         final pdfFile = await PDFGenerator.generate(
             widget.profCode, completeLessonPlanData);
-
         PDFOperator.openFile(pdfFile);
       } else {
         int returnCode = await requestStoragePermission();
@@ -84,14 +73,11 @@ class _TimetableScreenState extends State<TimetableScreen> {
           print('Return Code 0. Permission Granted.');
           final pdfFile = await PDFGenerator.generate(
               widget.profCode, completeLessonPlanData);
-
           PDFOperator.openFile(pdfFile);
         } else if (returnCode == -1) {
           print('Return Code -1. Permission NOT Granted');
         }
       }
-
-      print('Check2');
     } else {
       print('Document does not exist');
     }
@@ -165,7 +151,6 @@ class _TimetableScreenState extends State<TimetableScreen> {
 
                     if (firstData) {
                       firstData = false;
-                      print('Variable firstData has been inverted!');
                     } else {
                       WidgetsBinding.instance!.addPostFrameCallback((_) {
                         QuickAlert.show(

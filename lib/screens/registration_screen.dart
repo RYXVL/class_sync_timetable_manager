@@ -103,7 +103,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     print('PROFCODE NOT ENTERED!');
                   }
                 } catch (e) {
-                  print('Caught Error: $e');
+                  print('CAUGHT_EXCEPTION: $e');
                 }
               },
             )

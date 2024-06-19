@@ -78,7 +78,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       email: email, password: password);
                   if (user != null) {
                     String profCode = await DummyData().getProfCode();
-                    print('Prof code inside login screen: $profCode');
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return TimetableScreen(profCode);
@@ -87,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     print('User returned as null.');
                   }
                 } catch (e) {
-                  print('Caught Error: $e');
+                  print('CAUGHT_EXCEPTION: $e');
                 }
               },
             )

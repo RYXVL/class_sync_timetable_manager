@@ -22,7 +22,6 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
   List<String> filteredResults = [];
 
   List<Text> generateListOfResults() {
-    print('ListGen Res: $filteredResults');
     List<Text> results = [];
     if (filteredResults.length == 0) {
       results.add(const Text(
@@ -56,7 +55,6 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
     for (var profCodeDoc in profCodesCollectionSnapshot.docs) {
       profCodeList.add(profCodeDoc['code']);
     }
-    print(profCodeList);
     return profCodeList;
   }
 
@@ -176,14 +174,12 @@ class _FilterVacancyScreenState extends State<FilterVacancyScreen> {
                           timetable['section'] == '' &&
                           timetable['semester'] == '' &&
                           timetable['subjectName'] == '') {
-                        print(timetable);
                         setState(() {
                           filteredResults.add(profCode);
                         });
                         break;
                       }
                     }
-                    print('Profs free: $filteredResults');
                   } else {
                     print('Document does not exist');
                   }

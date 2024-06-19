@@ -870,7 +870,7 @@ class DummyData {
         print(everyDayTimetable['timetable']);
       }
     } catch (e) {
-      print('Caught Error: $e');
+      print('CAUGHT_EXCEPTION: $e');
     }
   }
 
@@ -915,7 +915,7 @@ class DummyData {
       }
       print('Dummy data insertion into Firestore Completed!');
     } catch (e) {
-      print('Caught Error: $e');
+      print('CAUGHT_EXCEPTION: $e');
     }
   }
 
@@ -935,7 +935,7 @@ class DummyData {
       }
       print('Dummy data insertion into Firestore Completed!');
     } catch (e) {
-      print('Caught Error: $e');
+      print('CAUGHT_EXCEPTION: $e');
     }
   }
 
@@ -959,7 +959,7 @@ class DummyData {
       }
       print('Dummy data insertion into Firestore Completed!');
     } catch (e) {
-      print('Caught Error: $e');
+      print('CAUGHT_EXCEPTION: $e');
     }
   }
 
@@ -982,14 +982,13 @@ class DummyData {
       }
       print('Dummy data insertion into Firestore Completed!');
     } catch (e) {
-      print('Caught Error: $e');
+      print('CAUGHT_EXCEPTION: $e');
     }
   }
 
   void insertLessonPlanInformation(
       String profCode, dynamic lessonInfo, String lessonPlanData) async {
     try {
-      print(lessonInfo);
       FirebaseFirestore db = FirebaseFirestore.instance;
       DateTime now = DateTime.now();
       String formattedDate = DateFormat('yyyy-MM-dd').format(now);
@@ -1001,14 +1000,12 @@ class DummyData {
       if (lessonPlanSnapshot.exists) {
         Map<String, dynamic> data =
             lessonPlanSnapshot.data() as Map<String, dynamic>;
-        print(data);
         if (data.containsKey(formattedDate)) {
           dynamic slotsList = data[formattedDate];
           if (slotsList.containsKey(lessonInfo["timeslot"])) {
             data[formattedDate][lessonInfo["timeslot"]]["data"] =
                 lessonPlanData;
             await db.collection(profCode).doc('Lesson Plan').update(data);
-            print('The key "key3" exists in the map.');
           } else {
             data[formattedDate][lessonInfo["timeslot"]] = {};
             data[formattedDate][lessonInfo["timeslot"]]["data"] =
@@ -1021,9 +1018,7 @@ class DummyData {
             data[formattedDate][lessonInfo["timeslot"]]["subjectName"] =
                 lessonInfo["subjectName"];
             await db.collection(profCode).doc('Lesson Plan').update(data);
-            print('The key "key3" does not exist in the map.');
           }
-          print('The key "key2" exists in the map.');
         } else {
           data[formattedDate] = {};
           data[formattedDate][lessonInfo["timeslot"]] = {};
@@ -1037,7 +1032,6 @@ class DummyData {
               lessonInfo["subjectName"];
           await db.collection(profCode).doc('Lesson Plan').update(data);
         }
-        print('Data from document: $data');
       } else {
         await db.collection(profCode).doc('Lesson Plan').set({
           formattedDate: {
@@ -1052,13 +1046,12 @@ class DummyData {
         print('Document does not exist');
       }
     } catch (e) {
-      print('Caught Error: $e');
+      print('CAUGHT_EXCEPTION: $e');
     }
   }
 
   Future<String> getProfCode() async {
     String? userEmail = FirebaseAuth.instance.currentUser?.email;
-    print(userEmail);
     FirebaseFirestore db = FirebaseFirestore.instance;
     dynamic profCodeSnapshot =
         await db.collection('PROFCODES').doc(userEmail).get();
@@ -1066,7 +1059,6 @@ class DummyData {
       Map<String, dynamic> data =
           profCodeSnapshot.data() as Map<String, dynamic>;
       String profCode = data['code'];
-      print(profCode);
       return profCode;
     } else {
       print('No such document exists!');
