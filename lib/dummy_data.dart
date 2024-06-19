@@ -948,7 +948,6 @@ class DummyData {
       for (var daysTimeTable in dummyTimetable2) {
         String dayOfWeek = daysTimeTable['dayOfWeek'];
         List timetable = daysTimeTable['timetable'];
-        // ------------------------------------------------
         await db
             .collection('ABC')
             .doc(dayOfWeek)

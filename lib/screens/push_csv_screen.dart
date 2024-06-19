@@ -53,8 +53,6 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
       setState(() {
         filePath = mainfile.path;
       });
-
-      // copyFile(filePath, "assets");
     } else {
       print("Error picking up the file!");
     }
@@ -63,7 +61,6 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
   @override
   void initState() {
     print('Prof code in push csv screen: ${widget.profCode}');
-    // TODO: implement initState
     super.initState();
   }
 
@@ -73,10 +70,6 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
       throw Exception(
           'CUSTOM_THROWN_ERROR: Daywise Section Semester Information NOT Given!');
     } else {
-      // print(
-      //     'FUNC: extractDaywiseInformation() | VAR: daywiseSectionSemester | $daywiseSectionSemester');
-      // daywiseSectionSemester =
-      //     'Monday-DBSL(B2):Spring:A;DBS:Fall:B|Tuesday-DBS:Fall:C|Thursday-DBS:Winter:C|Friday-DBS:Fall:D|Saturday-DBSL(B1):Fall:E;DBSL(B1):Spring:F';
       List daywiseInfoList = daywiseSectionSemester.split('|');
       for (var info in daywiseInfoList) {
         String day = info.split('-')[0];
@@ -140,12 +133,10 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
                 },
               ),
               Column(
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
                     'Please enter section (eg: A, B, ...) and semester (eg: Fall, Spring, Summer or Winter) for each subject of each day in the following given sample format!',
                     style: TextStyle(
-                      // color: Colors.blueGrey,
                       color: Color(0xFF141319),
                       fontSize: 15.0,
                       fontFamily: 'DMSerifDisplay',
@@ -202,32 +193,21 @@ class _PushCSVScreenState extends State<PushCSVScreen> {
                       onPressed: () async {
                         filePath = filePath;
                         final rawData = await File(filePath).readAsString();
-                        // final rawData = await rootBundle.loadString(filePath);
                         csvContents =
                             const CsvToListConverter().convert(rawData);
                         List<dynamic> timeSlots =
                             csvContents[0].sublist(1, csvContents[0].length);
                         dynamic timetableObjects = {};
                         dynamic extractedInfo = extractDaywiseInformation();
-                        // print(
-                        //     'FUNC: extractDaywiseInformation() | $extractedInfo');
                         for (int i = 1; i < csvContents.length; i++) {
                           String dayOfWeek = csvContents[i][0];
                           List<dynamic> daysSchedule =
                               csvContents[i].sublist(1, csvContents[i].length);
                           dynamic daysTimetable = [];
-                          // print('DAYSSCHEDULE: $daysSchedule');
                           for (int j = 0; j < daysSchedule.length; j++) {
                             String timeStart =
                                 timeSlots[j].split('-')[0].trim();
                             String timeEnd = timeSlots[j].split('-')[1].trim();
-                            // print('SUBJECTNAME: ${daysSchedule[j]}');
-                            // print(
-                            //     'EXTRACTION: ${extractedInfo[dayOfWeek][daysSchedule[j]]}');
-                            // print(
-                            //     'SEMESTER: ${extractedInfo[dayOfWeek][daysSchedule[j]]['semester']}');
-                            // print(
-                            //     'SECTION: ${extractedInfo[dayOfWeek][daysSchedule[j]]['section']}');
                             daysTimetable.add({
                               'timeStart': timeStart,
                               'timeEnd': timeEnd,

@@ -54,15 +54,11 @@ class _TimetableScreenState extends State<TimetableScreen> {
     if (await Permission.storage.request().isGranted) {
       print(
           'FUNC: requestStoragePermission | VAR: NONE | Storage Permission Granted');
-      // Permission is granted
-      // Perform the action that requires storage permission
       return 0;
     } else {
       print(
           'FUCN: requestStoragePermission | VAR: NONE | Storage Permission NOT Granted');
       return -1;
-      // Permission is not granted
-      // Handle the lack of permission accordingly
     }
   }
 
@@ -77,7 +73,6 @@ class _TimetableScreenState extends State<TimetableScreen> {
           'FUNC: generatePDFFromLessonPlanData | VAR: completeLessonPlanData | $completeLessonPlanData');
 
       if (await Permission.storage.isGranted) {
-        // Perform the action that requires storage permission
         print('Storage Permissions Already Granted');
         final pdfFile = await PDFGenerator.generate(
             widget.profCode, completeLessonPlanData);
