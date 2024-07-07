@@ -1,21 +1,5 @@
 # Class Sync Timetable Manager (CSTM)
 
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Features](#features)
-3. [Screens and Functionalities](#screens-and-functionalities)
-    - [Welcome Screen](#welcome-screen)
-    - [Login Screen](#login-screen)
-    - [Registration Screen](#registration-screen)
-    - [Timetable Screen](#timetable-screen)
-    - [Filter Vacancy Screen](#filter-vacancy-screen)
-    - [Push CSV Screen](#push-csv-screen)
-    - [Insert Lesson Plan Screen](#insert-lesson-plan-screen)
-    - [Lesson Plan Report Generation Sample](#lesson-plan-report-generation-sample)
-    - [Notifications Sample](#notifications-sample)
-4. [Technologies Used](#technologies-used)
-5. [Installation](#installation)
-
 ## Introduction
 
 The CSTM application is designed to streamline the process of managing academic schedules for faculty members across various departments. Built using Firebase and Flutter, the application provides real-time updates, secure user authentication, in-app notifications, lesson plan recording, and comprehensive report generation.
